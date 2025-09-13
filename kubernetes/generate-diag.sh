@@ -11,6 +11,7 @@ output_dir=""
 type="kubernetes"
 namespace="anomalo"
 base_domain=""
+custom_output_dir=""
 
 # Error handling and utility functions
 log_error() {
@@ -129,6 +130,39 @@ validate_inputs() {
     fi
     
     log_info "Using normalized domain: $base_domain"
+    
+    # Validate custom output directory if provided
+    if [[ -n "$custom_output_dir" ]]; then
+        # Convert to absolute path
+        if [[ "$custom_output_dir" = /* ]]; then
+            # Already absolute path
+            custom_output_dir="$custom_output_dir"
+        else
+            # Relative path - convert to absolute
+            custom_output_dir="$(pwd)/$custom_output_dir"
+        fi
+        
+        # Check if parent directory exists
+        local parent_dir
+        parent_dir=$(dirname "$custom_output_dir")
+        if [[ ! -d "$parent_dir" ]]; then
+            log_error "Parent directory does not exist: $parent_dir"
+            exit 1
+        fi
+        
+        # Check if output directory already exists
+        if [[ -e "$custom_output_dir" ]]; then
+            log_warning "Output directory already exists: $custom_output_dir"
+            read -p "Do you want to overwrite it? (y/N): " -n 1 -r
+            echo
+            if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                log_info "Exiting without overwriting existing directory."
+                exit 0
+            fi
+        fi
+        
+        log_info "Using custom output directory: $custom_output_dir"
+    fi
 }
 
 # Cleanup function for error handling
@@ -378,6 +412,7 @@ show_help() {
     echo "  -n, --namespace <namespace>  Specify the namespace to gather information from (default: anomalo)"
     echo "  -d, --domain <base_domain>   Specify the base domain URL for your anomalo instance."
     echo "                               Examples: anomalo.your-domain.com, https://anomalo.company.com"
+    echo "  -o, --output <directory>     Specify custom output directory (default: auto-generated timestamped name)"
     echo "  -h, --help                   Show this help message and exit"
     echo ""
     echo "Note: The domain parameter accepts various formats:"
@@ -386,6 +421,11 @@ show_help() {
     echo "  - http://anomalo.your-domain.com"
     echo "  - www.anomalo.your-domain.com"
     echo "  The script will automatically normalize the domain format."
+    echo ""
+    echo "Output directory examples:"
+    echo "  - ./my-diagnostics"
+    echo "  - /tmp/anomalo-debug"
+    echo "  - ~/diagnostics/anomalo-$(date +%Y%m%d)"
     echo ""
 }
 
@@ -400,7 +440,11 @@ main() {
     local health_check_url="https://${base_domain}/health_check?metrics=1"
 
     # Directory to store output files
-    output_dir="anomalo_diag_$(date +%Y%m%d_%H%M%S)"
+    if [[ -n "$custom_output_dir" ]]; then
+        output_dir="$custom_output_dir"
+    else
+        output_dir="anomalo_diag_$(date +%Y%m%d_%H%M%S)"
+    fi
     
     log_info "Creating output directory: $output_dir"
     if ! mkdir -p "$output_dir"; then
@@ -496,6 +540,11 @@ while [[ $# -gt 0 ]]; do
         ;;
         -d|--domain)
         base_domain="$2"
+        shift
+        shift
+        ;;
+        -o|--output)
+        custom_output_dir="$2"
         shift
         shift
         ;;

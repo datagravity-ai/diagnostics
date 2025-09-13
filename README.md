@@ -78,6 +78,7 @@ The script collects Docker-specific diagnostic information including:
 | `--type` | `-t` | Deployment type: `kubernetes` or `docker` | `kubernetes` |
 | `--namespace` | `-n` | Kubernetes namespace (Kubernetes only) | `anomalo` |
 | `--domain` | `-d` | Base domain URL for your Anomalo instance (supports various formats) | *required* |
+| `--output` | `-o` | Custom output directory for diagnostic files | Auto-generated timestamped name |
 | `--help` | `-h` | Show help message and exit | - |
 
 ## Domain Format
@@ -105,6 +106,33 @@ The script will automatically:
 - Remove `www.` prefixes
 - Remove trailing slashes
 - Use the normalized domain for health check requests
+
+## Output Directory Options
+
+By default, the script creates a timestamped directory (e.g., `anomalo_diag_20241201_143022`). You can specify a custom output directory using the `--output` option.
+
+### Examples
+
+```bash
+# Use default timestamped directory
+./generate-diag.sh -d anomalo.company.com
+
+# Specify custom directory
+./generate-diag.sh -d anomalo.company.com -o ./my-diagnostics
+
+# Use absolute path
+./generate-diag.sh -d anomalo.company.com -o /tmp/anomalo-debug
+
+# Use relative path (relative to current directory)
+./generate-diag.sh -d anomalo.company.com -o ../diagnostics/anomalo-$(date +%Y%m%d)
+```
+
+### Output Directory Behavior
+
+- **Auto-creation**: The script will create the directory if it doesn't exist
+- **Parent directory check**: The parent directory must exist
+- **Overwrite protection**: If the directory exists, you'll be prompted to confirm overwrite
+- **Absolute paths**: Relative paths are converted to absolute paths for consistency
 
 ## Prerequisites
 
