@@ -598,6 +598,12 @@ gather_docker_info() {
 # End Docker Content
 
 show_help() {
+    echo "Anomalo Diagnostic Tool - For IN-VPC CUSTOMERS Only"
+    echo "=================================================="
+    echo ""
+    echo "This tool is for customers hosting Anomalo on their own infrastructure."
+    echo "NOT for SaaS users - please contact support directly if using Anomalo SaaS."
+    echo ""
     echo "Usage: $0 [options]"
     echo ""
     echo "Options:"
@@ -748,8 +754,14 @@ EOF
 echo -e "\033[1;36m========================================================\033[0m"
 echo -e "\033[1;33m     Welcome to the \033[1;32mAnomalo Diagnostic Tool"
 echo ""
+echo -e "\033[1;33m This tool is for \033[1;31mIN-VPC CUSTOMERS\033[1;33m hosting Anomalo"
+echo -e "\033[1;33m on their own infrastructure (Kubernetes or Docker)"
+echo ""
+echo -e "\033[1;33m \033[1;31mNOT FOR SAAS USERS\033[1;33m - If you're using Anomalo SaaS,"
+echo -e "\033[1;33m please contact support directly instead of using this tool"
+echo ""
 echo -e "\033[1;33m This tool will gather diagnostic information about"
-echo -e "\033[1;33m your Anomalo deployment"
+echo -e "\033[1;33m your self-hosted Anomalo deployment"
 echo ""
 echo -e "\033[1;33m Attach the generated zip file to your support ticket in"
 echo -e "\033[1;33m the Anomalo Support Portal: https://anomalo.zendesk.com"
@@ -807,6 +819,9 @@ done
 # Interactive wizard for missing parameters
 echo ""
 echo "=== Configuration Wizard ==="
+echo ""
+echo "⚠️  REMINDER: This tool is for IN-VPC CUSTOMERS hosting Anomalo"
+echo "   on their own infrastructure. NOT for SaaS users."
 echo ""
 
 # Prompt for deployment type with default

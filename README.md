@@ -1,6 +1,22 @@
-# Anomalo Diagnostics
+# Anomalo Diagnostic Tool
 
-This repository contains comprehensive diagnostic tools for Anomalo deployments. These tools help collect system information, logs, and configuration data to assist with troubleshooting and support.
+A comprehensive diagnostic tool for **IN-VPC CUSTOMERS** hosting Anomalo on their own infrastructure. This tool supports both Kubernetes and Docker environments and helps collect system information, logs, and configuration data to assist with troubleshooting and support.
+
+> **⚠️ IMPORTANT: This tool is NOT for SaaS users. If you're using Anomalo SaaS, please contact support directly instead of using this diagnostic tool.**
+
+## Who Should Use This Tool
+
+### ✅ **FOR IN-VPC CUSTOMERS:**
+- **Self-hosted Anomalo deployments** on your own infrastructure
+- **Kubernetes deployments** in your own clusters
+- **Docker deployments** on your own servers
+- **On-premises installations** of Anomalo
+- **Private cloud deployments** (AWS VPC, Azure VNet, GCP VPC, etc.)
+
+### ❌ **NOT FOR SAAS USERS:**
+- **Anomalo SaaS customers** should contact support directly
+- **Cloud-hosted Anomalo** (managed by Anomalo)
+- **No infrastructure access** required for your Anomalo instance
 
 ## Features
 
