@@ -74,6 +74,23 @@ validate_required_tools() {
     fi
 }
 
+# Clean and normalize domain input
+normalize_domain() {
+    local domain="$1"
+    
+    # Remove protocol if present
+    domain="${domain#http://}"
+    domain="${domain#https://}"
+    
+    # Remove trailing slash if present
+    domain="${domain%/}"
+    
+    # Remove www. prefix if present (optional, but cleaner)
+    domain="${domain#www.}"
+    
+    echo "$domain"
+}
+
 # Validate input parameters
 validate_inputs() {
     # Validate deployment type
@@ -101,11 +118,17 @@ validate_inputs() {
         exit 1
     fi
     
-    # Basic domain validation
+    # Normalize the domain (remove protocol, trailing slash, etc.)
+    base_domain=$(normalize_domain "$base_domain")
+    
+    # Basic domain validation after normalization
     if [[ ! "$base_domain" =~ ^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
         log_error "Invalid domain format: $base_domain. Must be a valid domain name."
+        log_error "Examples: anomalo.your-domain.com, my-anomalo.company.com"
         exit 1
     fi
+    
+    log_info "Using normalized domain: $base_domain"
 }
 
 # Cleanup function for error handling
@@ -342,8 +365,16 @@ show_help() {
     echo "Options:"
     echo "  -t, --type <type>            Specify the type of deployment. kubernetes/docker (default: kubernetes)"
     echo "  -n, --namespace <namespace>  Specify the namespace to gather information from (default: anomalo)"
-    echo "  -d, --domain <base_domain>   Specify the base domain URL for your anomalo instance. Eg. anomalo.your-domain.com"
+    echo "  -d, --domain <base_domain>   Specify the base domain URL for your anomalo instance."
+    echo "                               Examples: anomalo.your-domain.com, https://anomalo.company.com"
     echo "  -h, --help                   Show this help message and exit"
+    echo ""
+    echo "Note: The domain parameter accepts various formats:"
+    echo "  - anomalo.your-domain.com"
+    echo "  - https://anomalo.your-domain.com"
+    echo "  - http://anomalo.your-domain.com"
+    echo "  - www.anomalo.your-domain.com"
+    echo "  The script will automatically normalize the domain format."
     echo ""
 }
 

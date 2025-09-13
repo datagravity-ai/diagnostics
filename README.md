@@ -77,8 +77,34 @@ The script collects Docker-specific diagnostic information including:
 |--------|-------|-------------|---------|
 | `--type` | `-t` | Deployment type: `kubernetes` or `docker` | `kubernetes` |
 | `--namespace` | `-n` | Kubernetes namespace (Kubernetes only) | `anomalo` |
-| `--domain` | `-d` | Base domain URL for your Anomalo instance | *required* |
+| `--domain` | `-d` | Base domain URL for your Anomalo instance (supports various formats) | *required* |
 | `--help` | `-h` | Show help message and exit | - |
+
+## Domain Format
+
+The `--domain` parameter is flexible and accepts various formats. The script will automatically normalize the input:
+
+**Supported formats:**
+- `anomalo.your-domain.com`
+- `https://anomalo.your-domain.com`
+- `http://anomalo.your-domain.com`
+- `www.anomalo.your-domain.com`
+- `https://www.anomalo.your-domain.com/`
+
+**Examples:**
+```bash
+# All of these work the same way:
+./generate-diag.sh -d anomalo.company.com
+./generate-diag.sh -d https://anomalo.company.com
+./generate-diag.sh -d http://anomalo.company.com
+./generate-diag.sh -d www.anomalo.company.com
+```
+
+The script will automatically:
+- Remove `http://` or `https://` prefixes
+- Remove `www.` prefixes
+- Remove trailing slashes
+- Use the normalized domain for health check requests
 
 ## Prerequisites
 
