@@ -8,8 +8,8 @@ set -euo pipefail
 
 # Global variables
 output_dir=""
-type="kubernetes"
-namespace="anomalo"
+type=""
+namespace=""
 base_domain=""
 custom_output_dir=""
 
@@ -407,6 +407,7 @@ gather_docker_info() {
 
 show_help() {
     echo "Usage: $0 [options]"
+    echo ""
     echo "Options:"
     echo "  -t, --type <type>            Specify the type of deployment. kubernetes/docker (default: kubernetes)"
     echo "  -n, --namespace <namespace>  Specify the namespace to gather information from (default: anomalo)"
@@ -414,6 +415,12 @@ show_help() {
     echo "                               Examples: anomalo.your-domain.com, https://anomalo.company.com"
     echo "  -o, --output <directory>     Specify custom output directory (default: auto-generated timestamped name)"
     echo "  -h, --help                   Show this help message and exit"
+    echo ""
+    echo "Interactive Mode:"
+    echo "  If you run the script without parameters, it will guide you through"
+    echo "  the configuration with an interactive wizard showing defaults."
+    echo ""
+    echo "  Example: $0"
     echo ""
     echo "Note: The domain parameter accepts various formats:"
     echo "  - anomalo.your-domain.com"
@@ -559,20 +566,67 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# Set defaults and prompt for missing required parameters
+# Interactive wizard for missing parameters
+echo ""
+echo "=== Configuration Wizard ==="
+echo ""
+
+# Prompt for deployment type with default
 if [[ -z "$type" ]]; then
-    type="kubernetes"
-    read -p "Enter the type of deployment (kubernetes/docker): " type
+    echo "Deployment type options:"
+    echo "  1) kubernetes (default)"
+    echo "  2) docker"
+    echo ""
+    read -p "Enter deployment type [kubernetes]: " type
+    if [[ -z "$type" ]]; then
+        type="kubernetes"
+    fi
+    echo "Selected: $type"
+    echo ""
 fi
 
+# Prompt for namespace if Kubernetes with default
 if [[ -z "$namespace" && "$type" == "kubernetes" ]]; then
-    namespace="anomalo"
-    log_info "No namespace specified, defaulting to $namespace"
+    echo "Kubernetes namespace:"
+    echo "  Default: anomalo"
+    echo ""
+    read -p "Enter namespace [anomalo]: " namespace
+    if [[ -z "$namespace" ]]; then
+        namespace="anomalo"
+    fi
+    echo "Selected: $namespace"
+    echo ""
 fi
 
+# Prompt for base domain
 if [[ -z "$base_domain" ]]; then
-    # Prompt for the base domain if not provided
-    read -p "Enter the base domain (e.g., anomalo.your-domain.com): " base_domain
+    echo "Anomalo instance domain:"
+    echo "  Examples: anomalo.your-domain.com, https://anomalo.company.com"
+    echo ""
+    read -p "Enter base domain: " base_domain
+    if [[ -z "$base_domain" ]]; then
+        log_error "Base domain is required."
+        exit 1
+    fi
+    echo "Selected: $base_domain"
+    echo ""
 fi
+
+# Prompt for output directory with default
+if [[ -z "$custom_output_dir" ]]; then
+    echo "Output directory:"
+    echo "  Default: anomalo_diag_$(date +%Y%m%d_%H%M%S)"
+    echo ""
+    read -p "Enter custom output directory (press Enter for default): " custom_output_dir
+    if [[ -z "$custom_output_dir" ]]; then
+        custom_output_dir=""
+    else
+        echo "Selected: $custom_output_dir"
+    fi
+    echo ""
+fi
+
+echo "=== Configuration Complete ==="
+echo ""
 
 main

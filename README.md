@@ -28,7 +28,40 @@ curl https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/kubernete
 This will:
 1. Download the diagnostic script (and Windows helper if on Windows)
 2. Make it executable (Linux/macOS) or run the Windows helper
-3. Run it with interactive prompts for required parameters
+3. Run the interactive configuration wizard
+
+## Interactive Configuration Wizard
+
+When you run the script without parameters, it will guide you through the configuration with a user-friendly wizard:
+
+```
+=== Configuration Wizard ===
+
+Deployment type options:
+  1) kubernetes (default)
+  2) docker
+
+Enter deployment type [kubernetes]: 
+
+Kubernetes namespace:
+  Default: anomalo
+
+Enter namespace [anomalo]: 
+
+Anomalo instance domain:
+  Examples: anomalo.your-domain.com, https://anomalo.company.com
+
+Enter base domain: anomalo.company.com
+
+Output directory:
+  Default: anomalo_diag_20241201_143022
+
+Enter custom output directory (press Enter for default): 
+
+=== Configuration Complete ===
+```
+
+The wizard shows clear defaults and examples, making it easy to configure the diagnostic tool.
 
 ## Supported Deployment Types
 
