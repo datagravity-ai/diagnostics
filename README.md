@@ -7,7 +7,7 @@ This repository contains comprehensive diagnostic tools for Anomalo deployments.
 - **Multi-platform support**: Kubernetes and Docker deployments
 - **Comprehensive data collection**: System info, logs, configurations, and metrics
 - **Robust error handling**: Graceful failure handling with clear error messages
-- **Cross-platform compatibility**: Works on Linux, macOS, and Windows
+- **Cross-platform compatibility**: Works on Linux, macOS, and Windows (with WSL/Git Bash)
 - **Automated validation**: Checks for required tools and validates inputs
 - **Progress reporting**: Real-time feedback during data collection
 
@@ -15,13 +15,19 @@ This repository contains comprehensive diagnostic tools for Anomalo deployments.
 
 ### One-Command Installation and Execution
 
+**Linux/macOS:**
 ```bash
 curl https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/kubernetes/generate-diag.sh -o generate-diag.sh && chmod +x generate-diag.sh && ./generate-diag.sh
 ```
 
+**Windows:**
+```cmd
+curl https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/kubernetes/generate-diag.bat -o generate-diag.bat && generate-diag.bat
+```
+
 This will:
-1. Download the diagnostic script
-2. Make it executable
+1. Download the diagnostic script (and Windows helper if on Windows)
+2. Make it executable (Linux/macOS) or run the Windows helper
 3. Run it with interactive prompts for required parameters
 
 ## Supported Deployment Types
@@ -89,6 +95,50 @@ The script collects Docker-specific diagnostic information including:
 - `docker` - Docker command-line tool
 - Access to Docker daemon (may require `sudo` on some systems)
 
+## Windows Support
+
+The diagnostic script is a bash script and requires a Unix-like environment to run on Windows. Here are your options:
+
+### Option 1: Windows Subsystem for Linux (WSL) - Recommended
+1. **Install WSL2**: Follow [Microsoft's WSL installation guide](https://docs.microsoft.com/en-us/windows/wsl/install)
+2. **Install required tools** in your WSL environment:
+   ```bash
+   # Ubuntu/Debian
+   sudo apt update && sudo apt install curl zip kubectl docker.io
+   
+   # Or use the script directly
+   curl https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/kubernetes/generate-diag.sh -o generate-diag.sh && chmod +x generate-diag.sh && ./generate-diag.sh
+   ```
+
+### Option 0: Windows Batch Helper - Easiest
+1. **Download and run the Windows batch file**:
+   ```cmd
+   curl https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/kubernetes/generate-diag.bat -o generate-diag.bat && generate-diag.bat
+   ```
+2. **The batch file will**:
+   - Check for required tools (bash, curl, zip)
+   - Download and run the diagnostic script
+   - Provide helpful error messages if tools are missing
+
+### Option 2: Git Bash
+1. **Install Git for Windows** (includes Git Bash)
+2. **Install additional tools**:
+   - `kubectl`: Download from [Kubernetes releases](https://github.com/kubernetes/kubernetes/releases)
+   - `curl` and `zip`: Usually included with Git Bash
+3. **Run the script** in Git Bash terminal
+
+### Option 3: Docker Desktop
+If you're using Docker Desktop on Windows:
+1. **Use Docker Desktop's built-in terminal**
+2. **Install kubectl** if needed for Kubernetes deployments
+3. **Run the script** from the Docker Desktop terminal
+
+### Windows-Specific Notes
+- **File paths**: Use forward slashes (`/`) in paths, even on Windows
+- **Permissions**: You may need to run as Administrator for some system information
+- **Docker access**: Ensure Docker Desktop is running and accessible
+- **kubectl config**: Your kubeconfig should be in `~/.kube/config` (WSL) or `%USERPROFILE%\.kube\config` (Windows)
+
 ## Output
 
 The script generates a timestamped ZIP file containing:
@@ -142,6 +192,28 @@ anomalo_diag_20241201_143022.zip
 - Check if your Anomalo instance is accessible at the provided domain
 - Verify the health check endpoint is available
 
+**Windows-specific Issues**
+
+**"bash: command not found" or "script won't run"**
+- Use WSL2, Git Bash, or Docker Desktop terminal
+- Ensure you're in a Unix-like environment
+- Check that the script has execute permissions: `chmod +x generate-diag.sh`
+
+**"kubectl: command not found" on Windows**
+- Install kubectl for Windows: Download from [Kubernetes releases](https://github.com/kubernetes/kubernetes/releases)
+- Add kubectl to your PATH environment variable
+- Or use WSL2 where kubectl installation is easier
+
+**"Cannot connect to Docker daemon" on Windows**
+- Ensure Docker Desktop is running
+- In WSL2, you may need to start Docker Desktop's WSL2 integration
+- Check Docker Desktop settings: Settings → Resources → WSL Integration
+
+**"Permission denied" errors on Windows**
+- Run your terminal as Administrator
+- In WSL2, you may need to use `sudo` for some commands
+- Check file permissions and ownership
+
 ### Getting Help
 
 If you encounter issues not covered here:
@@ -159,17 +231,3 @@ If you encounter issues not covered here:
 - **Sensitive Data**: ConfigMap values are collected (review before sharing)
 - **Network Access**: Script connects to your Anomalo instance for health metrics
 - **File Permissions**: Ensure the script has appropriate permissions to read system information
-
-## Contributing
-
-To contribute improvements to the diagnostic tools:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly on different platforms
-5. Submit a pull request
-
-## License
-
-This diagnostic tool is provided as-is for Anomalo customers and support teams.
