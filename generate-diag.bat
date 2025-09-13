@@ -48,7 +48,7 @@ echo Downloading and running the diagnostic script...
 echo.
 
 REM Download and run the script
-bash -c "curl https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/kubernetes/generate-diag.sh -o generate-diag.sh && chmod +x generate-diag.sh && ./generate-diag.sh"
+bash -c "curl https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/generate-diag.sh -o generate-diag.sh && chmod +x generate-diag.sh && ./generate-diag.sh"
 
 if %ERRORLEVEL% EQU 0 (
     echo.

@@ -17,12 +17,12 @@ This repository contains comprehensive diagnostic tools for Anomalo deployments.
 
 **Linux/macOS:**
 ```bash
-curl https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/kubernetes/generate-diag.sh -o generate-diag.sh && chmod +x generate-diag.sh && ./generate-diag.sh
+curl https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/generate-diag.sh -o generate-diag.sh && chmod +x generate-diag.sh && ./generate-diag.sh
 ```
 
 **Windows:**
 ```cmd
-curl https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/kubernetes/generate-diag.bat -o generate-diag.bat && generate-diag.bat
+curl https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/generate-diag.bat -o generate-diag.bat && generate-diag.bat
 ```
 
 This will:
@@ -320,13 +320,13 @@ The diagnostic script is a bash script and requires a Unix-like environment to r
    sudo apt update && sudo apt install curl zip kubectl docker.io
    
    # Or use the script directly
-   curl https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/kubernetes/generate-diag.sh -o generate-diag.sh && chmod +x generate-diag.sh && ./generate-diag.sh
+   curl https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/generate-diag.sh -o generate-diag.sh && chmod +x generate-diag.sh && ./generate-diag.sh
    ```
 
 ### Option 0: Windows Batch Helper - Easiest
 1. **Download and run the Windows batch file**:
    ```cmd
-   curl https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/kubernetes/generate-diag.bat -o generate-diag.bat && generate-diag.bat
+   curl https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/generate-diag.bat -o generate-diag.bat && generate-diag.bat
    ```
 2. **The batch file will**:
    - Check for required tools (bash, curl, zip)
