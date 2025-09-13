@@ -13,6 +13,8 @@ namespace=""
 base_domain=""
 custom_output_dir=""
 log_lines="250"
+total_steps=0
+current_step=0
 
 # Error handling and utility functions
 log_error() {
@@ -33,6 +35,38 @@ log_success() {
 
 log_failure() {
     echo "✗ $1"
+}
+
+# Progress bar functions
+init_progress() {
+    total_steps=$1
+    current_step=0
+    echo ""
+    echo "Progress: [                    ] 0%"
+}
+
+update_progress() {
+    current_step=$((current_step + 1))
+    local percentage=$((current_step * 100 / total_steps))
+    local filled=$((current_step * 20 / total_steps))
+    local empty=$((20 - filled))
+    
+    # Build progress bar string
+    local bar=""
+    for ((i=0; i<filled; i++)); do
+        bar+="█"
+    done
+    for ((i=0; i<empty; i++)); do
+        bar+="░"
+    done
+    
+    # Move cursor to beginning of line and update progress
+    printf "\rProgress: [%s] %d%% (%d/%d)" "$bar" "$percentage" "$current_step" "$total_steps"
+}
+
+complete_progress() {
+    printf "\rProgress: [████████████████████] 100%% (%d/%d)\n" "$total_steps" "$total_steps"
+    echo ""
 }
 
 # Safe execution wrapper for critical commands
@@ -223,17 +257,37 @@ gather_k8s_info() {
 
     log_info "Gathering Kubernetes diagnostic information for namespace: $namespace"
 
+    # Initialize progress bar (estimate steps)
+    local estimated_steps=15  # Base steps
+    local pod_count=0
+    local configmap_count=0
+    
+    # Count pods and configmaps for more accurate progress
+    if pods=$(kubectl get pods -n "$namespace" -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' 2>/dev/null); then
+        pod_count=$(echo "$pods" | grep -c . || echo "0")
+    fi
+    if configmaps=$(kubectl get configmaps -n "$namespace" -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' 2>/dev/null); then
+        configmap_count=$(echo "$configmaps" | grep -c . || echo "0")
+    fi
+    
+    total_steps=$((estimated_steps + pod_count + configmap_count))
+    init_progress $total_steps
+
     # Get all resources in the specified namespace
     safe_execute "kubectl get all -n '$namespace' -o wide" "$output_dir/all_resources_${namespace}.txt" "All resources in $namespace namespace"
+    update_progress
 
     # Get events for the namespace
     safe_execute "kubectl get events -n '$namespace' --sort-by='.lastTimestamp'" "$output_dir/events_${namespace}.txt" "Events in $namespace namespace"
+    update_progress
 
     # Get node information
     safe_execute "kubectl get nodes -o wide" "$output_dir/nodes.txt" "Cluster nodes information"
+    update_progress
 
     # Get node metrics if available
     kubectl top nodes > "$output_dir/node_metrics.txt" 2>/dev/null || log_warning "Node metrics not available (metrics-server may not be installed)"
+    update_progress
 
     # Check the status of each pod and fetch logs or describe
     log_info "Gathering pod information and logs..."
@@ -253,6 +307,7 @@ gather_k8s_info() {
                 else
                     log_warning "Could not get status for pod: $pod"
                 fi
+                update_progress
             fi
         done <<< "$pods"
     else
@@ -261,18 +316,23 @@ gather_k8s_info() {
 
     # Get deployment configurations in the specified namespace
     safe_execute "kubectl get deployments -n '$namespace' -o yaml" "$output_dir/deployments_config_${namespace}.yaml" "Deployment configurations"
+    update_progress
 
     # Get services
     safe_execute "kubectl get services -n '$namespace' -o wide" "$output_dir/services_${namespace}.txt" "Services in $namespace namespace"
+    update_progress
 
     # Get ingress
     safe_execute "kubectl get ingress -n '$namespace' -o wide" "$output_dir/ingress_${namespace}.txt" "Ingress in $namespace namespace"
+    update_progress
 
     # Get persistent volumes and claims
     safe_execute "kubectl get pv,pvc -n '$namespace'" "$output_dir/storage_${namespace}.txt" "Storage resources in $namespace namespace"
+    update_progress
 
     # List ConfigMaps names, each on a new line, in the specified namespace
     safe_execute "kubectl get configmaps -n '$namespace' -o jsonpath=\"{range .items[*]}{.metadata.name}{'\n'}{end}\"" "$output_dir/configmaps_${namespace}.txt" "ConfigMap names in $namespace namespace"
+    update_progress
     
     # Get the values from all ConfigMaps in the namespace
     log_info "Gathering all ConfigMap values..."
@@ -281,6 +341,7 @@ gather_k8s_info() {
         while IFS= read -r configmap; do
             if [[ -n "$configmap" ]]; then
                 safe_execute "kubectl get configmap '$configmap' -n '$namespace' -o yaml" "$output_dir/${configmap}_configmap.yaml" "ConfigMap $configmap"
+                update_progress
             fi
         done <<< "$configmaps"
     else
@@ -289,6 +350,7 @@ gather_k8s_info() {
     
     # List Secret names, each on a new line, in the specified namespace
     safe_execute "kubectl get secrets -n '$namespace' -o jsonpath=\"{range .items[*]}{.metadata.name}{'\n'}{end}\"" "$output_dir/secrets_${namespace}.txt" "Secret names in $namespace namespace"
+    update_progress
 
     # Get the values from specific Secrets if they exist (for debugging purposes)
     log_info "Gathering Secret values for debugging..."
@@ -300,7 +362,9 @@ gather_k8s_info() {
             log_info "Secret '$secret' not found in namespace '$namespace'"
         fi
     done
+    update_progress
 
+    complete_progress
     log_success "Kubernetes diagnostic information gathered successfully"
 }
 
@@ -364,27 +428,46 @@ gather_docker_info() {
     
     log_info "Gathering Docker diagnostic information..."
     
+    # Initialize progress bar for Docker collection
+    local estimated_steps=12  # Base steps
+    local container_count=0
+    
+    # Count containers for more accurate progress
+    if containers=$(docker ps -a --format '{{.Names}}' 2>/dev/null); then
+        container_count=$(echo "$containers" | grep -c . || echo "0")
+    fi
+    
+    total_steps=$((estimated_steps + container_count * 2))  # *2 for logs and inspect
+    init_progress $total_steps
+    
     gather_host_info "$output_dir"
     check_docker_connection
     
     # Get the list of running containers
     safe_execute "docker ps" "$output_dir/running_containers.txt" "Running containers"
+    update_progress
 
     # Get the list of all containers
     safe_execute "docker ps -a" "$output_dir/all_containers.txt" "All containers"
+    update_progress
 
     # Get the list of all images
     safe_execute "docker images" "$output_dir/all_images.txt" "All images"
+    update_progress
 
     # Get the list of all volumes
     safe_execute "docker volume ls" "$output_dir/all_volumes.txt" "All volumes"
+    update_progress
 
     # Get the list of all networks
     safe_execute "docker network ls" "$output_dir/all_networks.txt" "All networks"
+    update_progress
 
     # Get Docker system information
     safe_execute "docker system df" "$output_dir/docker_system_df.txt" "Docker system disk usage"
+    update_progress
     safe_execute "docker version" "$output_dir/docker_version.txt" "Docker version information"
+    update_progress
 
     # Get the list of all logs
     log_info "Gathering container logs..."
@@ -398,6 +481,7 @@ gather_docker_info() {
                 else
                     log_warning "Could not get logs for container: $name"
                 fi
+                update_progress
             fi
         done <<< "$containers"
     else
@@ -414,6 +498,7 @@ gather_docker_info() {
                 else
                     log_warning "Could not inspect container: $name"
                 fi
+                update_progress
             fi
         done <<< "$containers"
     fi
@@ -421,6 +506,7 @@ gather_docker_info() {
     # Remove any empty files
     find "$output_dir" -type f -empty -delete 2>/dev/null || true
 
+    complete_progress
     log_success "Docker diagnostic information gathered successfully"
 }
 # End Docker Content
@@ -495,6 +581,9 @@ main() {
         gather_k8s_info "$namespace" "$output_dir"
     fi
 
+    # Initialize progress for final steps
+    init_progress 4
+
     # Fetch metrics from the specified URL
     log_info "Fetching health check metrics..."
     if curl -s --connect-timeout 30 --max-time 60 "$health_check_url" -o "$output_dir/metrics.json"; then
@@ -503,6 +592,7 @@ main() {
         log_warning "Failed to fetch metrics data from $health_check_url (continuing anyway)"
         echo "{}" > "$output_dir/metrics.json"  # Create empty JSON file
     fi
+    update_progress
 
     # Create summary file
     log_info "Creating diagnostic summary..."
@@ -521,6 +611,7 @@ EOF
     echo "Output Directory: $output_dir" >> "$output_dir/diagnostic_summary.txt"
     echo "Files Collected:" >> "$output_dir/diagnostic_summary.txt"
     find "$output_dir" -type f -name "*.txt" -o -name "*.yaml" -o -name "*.json" | sort >> "$output_dir/diagnostic_summary.txt"
+    update_progress
 
     # Compress the output directory
     log_info "Compressing diagnostic data..."
@@ -530,6 +621,9 @@ EOF
         log_error "Failed to compress output directory"
         exit 1
     fi
+    update_progress
+
+    complete_progress
 
     # Display final instructions
     echo ""

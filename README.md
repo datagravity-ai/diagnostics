@@ -9,7 +9,7 @@ This repository contains comprehensive diagnostic tools for Anomalo deployments.
 - **Robust error handling**: Graceful failure handling with clear error messages
 - **Cross-platform compatibility**: Works on Linux, macOS, and Windows (with WSL/Git Bash)
 - **Automated validation**: Checks for required tools and validates inputs
-- **Progress reporting**: Real-time feedback during data collection
+- **Progress reporting**: Real-time progress bars and feedback during data collection
 
 ## Quick Start
 
@@ -195,6 +195,42 @@ The script collects logs from all containers/pods with configurable line counts:
 - **File naming**: Log files are named with the line count (e.g., `logs_pod-name_last500.txt`)
 - **Validation**: Log line count must be a positive integer (1-10000)
 - **Warning**: Large log counts (>10000) will show a warning about file size
+
+## Progress Tracking
+
+The diagnostic script provides real-time progress tracking with visual progress bars:
+
+### Progress Bar Features
+
+- **Visual progress**: Animated progress bar showing completion percentage
+- **Step counting**: Shows current step and total steps (e.g., "15/25")
+- **Dynamic sizing**: Progress bar adjusts based on actual workload
+- **Real-time updates**: Progress updates as each operation completes
+
+### Progress Bar Display
+
+```
+Progress: [████████████░░░░░░░░] 60% (15/25)
+```
+
+- **Filled blocks (█)**: Completed steps
+- **Empty blocks (░)**: Remaining steps
+- **Percentage**: Overall completion percentage
+- **Step counter**: Current step / total steps
+
+### What's Tracked
+
+**Kubernetes deployments:**
+- Resource collection (nodes, events, services, etc.)
+- Pod log collection (each pod is a step)
+- ConfigMap collection (each ConfigMap is a step)
+- Secret collection and final processing steps
+
+**Docker deployments:**
+- System information gathering
+- Container listing and inspection
+- Log collection (each container is a step)
+- Final processing and compression
 
 ## Prerequisites
 
