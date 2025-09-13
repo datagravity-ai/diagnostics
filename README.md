@@ -187,6 +187,10 @@ anomalo_diag_20241201_143022.zip
 │   ├── logs_anomalo-web_last250.txt
 │   └── describe_anomalo-worker.txt
 ├── configmaps_anomalo.txt
+├── anomalo-env_configmap.yaml
+├── nginx-conf_configmap.yaml
+├── secrets_anomalo.txt
+├── anomalo-env-secrets_secret.yaml  # Contains sensitive data
 ├── services_anomalo.txt
 ├── storage_anomalo.txt
 └── metrics.json
@@ -253,7 +257,15 @@ If you encounter issues not covered here:
 
 ## Security Notes
 
-- **Secrets**: Only secret names are collected, not values
-- **Sensitive Data**: ConfigMap values are collected (review before sharing)
+- **Secrets**: Only secret names are collected by default, except for `anomalo-env-secrets` which contains values for debugging
+- **Sensitive Data**: ConfigMap values and the `anomalo-env-secrets` Secret values are collected (review before sharing)
 - **Network Access**: Script connects to your Anomalo instance for health metrics
 - **File Permissions**: Ensure the script has appropriate permissions to read system information
+
+### Sensitive Data Collection
+
+The script collects the following sensitive data for debugging purposes:
+- **ConfigMap values**: `anomalo-env` and `nginx-conf` ConfigMaps
+- **Secret values**: `anomalo-env-secrets` Secret (if it exists)
+
+**Important**: These files contain sensitive information like passwords, API keys, and configuration data. Review the contents before sharing with support teams.

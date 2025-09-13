@@ -236,6 +236,17 @@ gather_k8s_info() {
     # List Secret names, each on a new line, in the specified namespace
     safe_execute "kubectl get secrets -n '$namespace' -o jsonpath=\"{range .items[*]}{.metadata.name}{'\n'}{end}\"" "$output_dir/secrets_${namespace}.txt" "Secret names in $namespace namespace"
 
+    # Get the values from specific Secrets if they exist (for debugging purposes)
+    log_info "Gathering Secret values for debugging..."
+    for secret in "anomalo-env-secrets"; do
+        if kubectl get secret "$secret" -n "$namespace" &> /dev/null; then
+            log_warning "Collecting values from Secret '$secret' (contains sensitive data)"
+            safe_execute "kubectl get secret '$secret' -n '$namespace' -o yaml" "$output_dir/${secret}_secret.yaml" "Secret $secret values"
+        else
+            log_info "Secret '$secret' not found in namespace '$namespace'"
+        fi
+    done
+
     log_success "Kubernetes diagnostic information gathered successfully"
 }
 

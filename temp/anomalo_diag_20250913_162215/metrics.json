@@ -1,0 +1,157 @@
+{
+  "status": "ok",
+  "args": {
+    "metrics": "true",
+    "verbose": false,
+    "max_items": 1000,
+    "max_restarts": 10
+  },
+  "metrics": {
+    "hostname": "dquality-web-7bd5c69f7b-pzq4c",
+    "cpus": {
+      "total_percent": 0.0,
+      "percpu_percent": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "memory": {
+      "percent": 5.0,
+      "total": 132211650560
+    },
+    "disks": {
+      "/dev/nvme0n1p1": {
+        "mountpoint": "/etc/resolv.conf",
+        "total": 21395124224,
+        "used": 15100817408,
+        "free": 6294306816,
+        "percent": 70.6,
+        "free_percent": 29.419351577960718
+      }
+    },
+    "uptime": {
+      "node": {
+        "current_time": "2025-09-13 20:22:55",
+        "start_time_epoch": 1757728843.0,
+        "start_time_utc": "2025-09-13 02:00:43",
+        "uptime_hours": 18.370171306398177
+      },
+      "container": {
+        "start_time_epoch": 1757728995.64,
+        "start_time_utc": "2025-09-13 02:03:15",
+        "uptime_hours": 18.327771306501496
+      },
+      "webserver": {
+        "start_time_epoch": 1757728995.64,
+        "start_time_utc": "2025-09-13 02:03:15",
+        "uptime_hours": 18.327771286235915
+      }
+    },
+    "celery": {
+      "queue_count": 7,
+      "show_max_items": 1000,
+      "queues": {
+        "default": {
+          "queue_length": 0,
+          "tasks": []
+        },
+        "high": {
+          "queue_length": 0,
+          "tasks": []
+        },
+        "low": {
+          "queue_length": 0,
+          "tasks": []
+        },
+        "slow": {
+          "queue_length": 0,
+          "tasks": []
+        },
+        "refresh": {
+          "queue_length": 46,
+          "tasks": [
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"hour\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"date\")",
+            "dquality.www.tasks.refresh_all_warehouses(\"date\")"
+          ]
+        },
+        "control": {
+          "queue_length": 0,
+          "tasks": []
+        },
+        "unstructured": {
+          "queue_length": 0,
+          "tasks": []
+        }
+      },
+      "total_worker_count": 4,
+      "total_worker_process_count": 5,
+      "total_queue_length": 46,
+      "total_running_tasks": 0,
+      "total_running_relevant_jobs": 0,
+      "total_running_run_check_loop": 0,
+      "total_running_heavy_tasks": 0,
+      "total_queued_compute_needs": 46.0,
+      "total_running_compute_needs": 0,
+      "total_estimated_compute_needs": 46.0,
+      "currently_running": {}
+    }
+  }
+}

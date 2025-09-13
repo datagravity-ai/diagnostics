@@ -1,0 +1,79 @@
+time="2025-09-11T23:05:48Z" level=info msg="extension.credentialshelper: helper registered" name=aws
+time="2025-09-11T23:05:48Z" level=info msg="bot: registered" name=slack
+time="2025-09-11T23:05:48Z" level=info msg="extension.credentialshelper: helper registered" name=gcr
+time="2025-09-11T23:05:48Z" level=info msg="keel starting..." arch=amd64 build_date=2025-09-09T203946Z go_version=go1.25.1 os=linux revision= version=
+time="2025-09-11T23:05:48Z" level=info msg="initializing database" database_path=/data/keel.db type=sqlite3
+time="2025-09-11T23:05:48Z" level=info msg="extension.notification.auditor: audit logger configured" name=auditor
+time="2025-09-11T23:05:48Z" level=info msg="notificationSender: sender configured" sender name=auditor
+time="2025-09-11T23:05:48Z" level=info msg="extension.notification.slack: sender configured" channels="[general]" name=slack
+time="2025-09-11T23:05:48Z" level=info msg="notificationSender: sender configured" sender name=slack
+time="2025-09-11T23:05:48Z" level=info msg="provider.kubernetes: using in-cluster configuration"
+time="2025-09-11T23:05:48Z" level=info msg="provider.defaultProviders: provider 'kubernetes' registered"
+time="2025-09-11T23:05:48Z" level=info msg="extension.credentialshelper: helper registered" name=secrets
+time="2025-09-11T23:05:48Z" level=info msg="bot.slack.Configure(): SLACK_APP_TOKEN must have the previf \"xapp-\"."
+time="2025-09-11T23:05:48Z" level=error msg="bot.Run(): can not get configuration for bot [slack]"
+time="2025-09-11T23:05:48Z" level=info msg="trigger.poll.manager: polling trigger configured"
+time="2025-09-11T23:05:48Z" level=info msg=started context=watch resource=deployments
+time="2025-09-11T23:05:48Z" level=info msg=started context=watch resource=statefulsets
+time="2025-09-11T23:05:48Z" level=info msg=started context=watch resource=daemonsets
+time="2025-09-11T23:05:48Z" level=info msg=started context=watch resource=cronjobs
+time="2025-09-11T23:05:48Z" level=info msg="authentication is not enabled, admin HTTP handlers are not initialized"
+time="2025-09-11T23:05:48Z" level=info msg="webhook trigger server starting..." port=9300
+time="2025-09-11T23:05:48Z" level=info msg=started context=buffer
+time="2025-09-11T23:05:51Z" level=info msg="trigger.poll.RepositoryWatcher: new watch tag digest job added" digest="sha256:3a062181d430c24af879afb9463b577329d1ed8fade5d0252d5c69b118f677f7" image="anomalo-invpc/joe-test-1/deploy-web:joe-test-1" job_name="us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1" schedule="@every 1m"
+time="2025-09-12T10:18:51Z" level=info msg="trigger.poll.WatchTagJob: digest change detected, submiting event to providers" image="anomalo-invpc/joe-test-1/deploy-web:joe-test-1" new_digest="sha256:c5d5ac6ecfb48f7ef0fa16654a03e52b5637d7d8ecc266600e23b3ad94fe70dc"
+time="2025-09-12T10:18:51Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=anomalo-worker-control namespace=anomalo
+time="2025-09-12T10:18:51Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-12T10:18:51Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=anomalo-worker-control namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-12T10:18:51Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=anomalo-worker-default namespace=anomalo
+time="2025-09-12T10:18:51Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-12T10:18:51Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=anomalo-worker-default namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-12T10:18:51Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=anomalo-worker-long-running namespace=anomalo
+time="2025-09-12T10:18:51Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-12T10:18:51Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=anomalo-worker-long-running namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-12T10:18:51Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=anomalo-worker-quick-high namespace=anomalo
+time="2025-09-12T10:18:52Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-12T10:18:52Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=anomalo-worker-quick-high namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-12T10:18:52Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=anomalo-worker-quick-low namespace=anomalo
+time="2025-09-12T10:18:52Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-12T10:18:52Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=anomalo-worker-quick-low namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-12T10:18:52Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=anomalo-worker-refresh namespace=anomalo
+time="2025-09-12T10:18:52Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-12T10:18:52Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=anomalo-worker-refresh namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-12T10:18:52Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=anomalo-worker-unstructured namespace=anomalo
+time="2025-09-12T10:18:52Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-12T10:18:52Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=anomalo-worker-unstructured namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-12T10:18:52Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=dquality-web namespace=anomalo
+time="2025-09-12T10:18:52Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-12T10:18:52Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=dquality-web namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-12T10:18:52Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=dquality-worker-mgmt namespace=anomalo
+time="2025-09-12T10:18:52Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-12T10:18:52Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=dquality-worker-mgmt namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-13T01:24:51Z" level=info msg="trigger.poll.WatchTagJob: digest change detected, submiting event to providers" image="anomalo-invpc/joe-test-1/deploy-web:joe-test-1" new_digest="sha256:f0533c2bd56eff033b78d9e5a0d4d4bbe12168e5e1c5ac013f05463bcb940cf9"
+time="2025-09-13T01:24:51Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=anomalo-worker-control namespace=anomalo
+time="2025-09-13T01:24:51Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-13T01:24:51Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=anomalo-worker-control namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-13T01:24:51Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=anomalo-worker-default namespace=anomalo
+time="2025-09-13T01:24:51Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-13T01:24:51Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=anomalo-worker-default namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-13T01:24:51Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=anomalo-worker-long-running namespace=anomalo
+time="2025-09-13T01:24:51Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-13T01:24:51Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=anomalo-worker-long-running namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-13T01:24:51Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=anomalo-worker-quick-high namespace=anomalo
+time="2025-09-13T01:24:51Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-13T01:24:51Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=anomalo-worker-quick-high namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-13T01:24:51Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=anomalo-worker-quick-low namespace=anomalo
+time="2025-09-13T01:24:51Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-13T01:24:51Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=anomalo-worker-quick-low namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-13T01:24:51Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=anomalo-worker-refresh namespace=anomalo
+time="2025-09-13T01:24:51Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-13T01:24:51Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=anomalo-worker-refresh namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-13T01:24:51Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=anomalo-worker-unstructured namespace=anomalo
+time="2025-09-13T01:24:52Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-13T01:24:52Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=anomalo-worker-unstructured namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-13T01:24:52Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=dquality-web namespace=anomalo
+time="2025-09-13T01:24:52Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-13T01:24:52Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=dquality-web namespace=anomalo new=joe-test-1 previous=joe-test-1
+time="2025-09-13T01:24:52Z" level=warning msg="provider.kubernetes: got error while archiving approvals counter after successful update" error="approval not found: record not found" kind=deployment name=dquality-worker-mgmt namespace=anomalo
+time="2025-09-13T01:24:52Z" level=error msg="extension.notification.slack: failed to send notification" channel=general error=account_inactive
+time="2025-09-13T01:24:52Z" level=info msg="provider.kubernetes: resource updated" kind=deployment name=dquality-worker-mgmt namespace=anomalo new=joe-test-1 previous=joe-test-1

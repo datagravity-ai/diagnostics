@@ -1,0 +1,89 @@
+LAST SEEN   TYPE     REASON              OBJECT                                         MESSAGE
+21m         Normal   Scheduled           pod/anomalo-worker-control-746597f8dd-qjbsb    Successfully assigned anomalo/anomalo-worker-control-746597f8dd-qjbsb to ip-192-168-3-132.us-west-2.compute.internal
+19m         Normal   Scheduled           pod/anomalo-worker-control-746597f8dd-pxmq5    Successfully assigned anomalo/anomalo-worker-control-746597f8dd-pxmq5 to ip-192-168-3-132.us-west-2.compute.internal
+21m         Normal   Scheduled           pod/anomalo-worker-control-746597f8dd-hvbkw    Successfully assigned anomalo/anomalo-worker-control-746597f8dd-hvbkw to ip-192-168-3-132.us-west-2.compute.internal
+21m         Normal   Scheduled           pod/anomalo-worker-control-746597f8dd-cmrt4    Successfully assigned anomalo/anomalo-worker-control-746597f8dd-cmrt4 to ip-192-168-3-132.us-west-2.compute.internal
+19m         Normal   Scheduled           pod/anomalo-worker-control-746597f8dd-4xps9    Successfully assigned anomalo/anomalo-worker-control-746597f8dd-4xps9 to ip-192-168-3-132.us-west-2.compute.internal
+21m         Normal   Scheduled           pod/anomalo-worker-control-746597f8dd-pvtcf    Successfully assigned anomalo/anomalo-worker-control-746597f8dd-pvtcf to ip-192-168-3-132.us-west-2.compute.internal
+21m         Normal   Scheduled           pod/anomalo-worker-control-746597f8dd-6gqp4    Successfully assigned anomalo/anomalo-worker-control-746597f8dd-6gqp4 to ip-192-168-3-132.us-west-2.compute.internal
+21m         Normal   Scheduled           pod/anomalo-worker-control-746597f8dd-htvzb    Successfully assigned anomalo/anomalo-worker-control-746597f8dd-htvzb to ip-192-168-3-132.us-west-2.compute.internal
+21m         Normal   Scheduled           pod/anomalo-worker-control-746597f8dd-h7nrh    Successfully assigned anomalo/anomalo-worker-control-746597f8dd-h7nrh to ip-192-168-3-120.us-west-2.compute.internal
+21m         Normal   Scheduled           pod/anomalo-worker-control-746597f8dd-v5s69    Successfully assigned anomalo/anomalo-worker-control-746597f8dd-v5s69 to ip-192-168-3-132.us-west-2.compute.internal
+21m         Normal   Scheduled           pod/anomalo-worker-control-746597f8dd-lq7zx    Successfully assigned anomalo/anomalo-worker-control-746597f8dd-lq7zx to ip-192-168-3-132.us-west-2.compute.internal
+21m         Normal   Scheduled           pod/anomalo-worker-control-746597f8dd-b952t    Successfully assigned anomalo/anomalo-worker-control-746597f8dd-b952t to ip-192-168-3-120.us-west-2.compute.internal
+21m         Normal   SuccessfulCreate    replicaset/anomalo-worker-control-746597f8dd   Created pod: anomalo-worker-control-746597f8dd-v5s69
+21m         Normal   SuccessfulCreate    replicaset/anomalo-worker-control-746597f8dd   Created pod: anomalo-worker-control-746597f8dd-htvzb
+21m         Normal   SuccessfulCreate    replicaset/anomalo-worker-control-746597f8dd   Created pod: anomalo-worker-control-746597f8dd-h7nrh
+21m         Normal   SuccessfulCreate    replicaset/anomalo-worker-control-746597f8dd   Created pod: anomalo-worker-control-746597f8dd-6gqp4
+21m         Normal   SuccessfulCreate    replicaset/anomalo-worker-control-746597f8dd   Created pod: anomalo-worker-control-746597f8dd-cmrt4
+21m         Normal   SuccessfulCreate    replicaset/anomalo-worker-control-746597f8dd   (combined from similar events): Created pod: anomalo-worker-control-746597f8dd-lq7zx
+21m         Normal   SuccessfulCreate    replicaset/anomalo-worker-control-746597f8dd   Created pod: anomalo-worker-control-746597f8dd-hvbkw
+21m         Normal   SuccessfulCreate    replicaset/anomalo-worker-control-746597f8dd   Created pod: anomalo-worker-control-746597f8dd-pvtcf
+21m         Normal   ScalingReplicaSet   deployment/anomalo-worker-control              Scaled up replica set anomalo-worker-control-746597f8dd from 0 to 10
+21m         Normal   SuccessfulCreate    replicaset/anomalo-worker-control-746597f8dd   Created pod: anomalo-worker-control-746597f8dd-qjbsb
+21m         Normal   SuccessfulCreate    replicaset/anomalo-worker-control-746597f8dd   Created pod: anomalo-worker-control-746597f8dd-b952t
+21m         Normal   Pulling             pod/anomalo-worker-control-746597f8dd-b952t    Pulling image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1"
+21m         Normal   Pulling             pod/anomalo-worker-control-746597f8dd-6gqp4    Pulling image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1"
+21m         Normal   Pulling             pod/anomalo-worker-control-746597f8dd-v5s69    Pulling image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1"
+21m         Normal   Pulling             pod/anomalo-worker-control-746597f8dd-qjbsb    Pulling image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1"
+21m         Normal   Pulling             pod/anomalo-worker-control-746597f8dd-hvbkw    Pulling image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1"
+21m         Normal   Created             pod/anomalo-worker-control-746597f8dd-6gqp4    Created container: worker
+21m         Normal   Pulling             pod/anomalo-worker-control-746597f8dd-pvtcf    Pulling image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1"
+21m         Normal   Created             pod/anomalo-worker-control-746597f8dd-qjbsb    Created container: worker
+21m         Normal   Pulling             pod/anomalo-worker-control-746597f8dd-htvzb    Pulling image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1"
+21m         Normal   Pulling             pod/anomalo-worker-control-746597f8dd-h7nrh    Pulling image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1"
+21m         Normal   Pulled              pod/anomalo-worker-control-746597f8dd-6gqp4    Successfully pulled image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1" in 802ms (802ms including waiting). Image size: 3279694266 bytes.
+21m         Normal   Pulling             pod/anomalo-worker-control-746597f8dd-lq7zx    Pulling image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1"
+21m         Normal   Pulling             pod/anomalo-worker-control-746597f8dd-cmrt4    Pulling image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1"
+21m         Normal   Pulled              pod/anomalo-worker-control-746597f8dd-qjbsb    Successfully pulled image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1" in 796ms (796ms including waiting). Image size: 3279694266 bytes.
+21m         Normal   Pulled              pod/anomalo-worker-control-746597f8dd-lq7zx    Successfully pulled image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1" in 1.31s (1.311s including waiting). Image size: 3279694266 bytes.
+21m         Normal   Created             pod/anomalo-worker-control-746597f8dd-b952t    Created container: worker
+21m         Normal   Created             pod/anomalo-worker-control-746597f8dd-hvbkw    Created container: worker
+21m         Normal   Started             pod/anomalo-worker-control-746597f8dd-hvbkw    Started container worker
+21m         Normal   Started             pod/anomalo-worker-control-746597f8dd-6gqp4    Started container worker
+21m         Normal   Pulled              pod/anomalo-worker-control-746597f8dd-b952t    Successfully pulled image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1" in 745ms (745ms including waiting). Image size: 3279694266 bytes.
+21m         Normal   Pulled              pod/anomalo-worker-control-746597f8dd-hvbkw    Successfully pulled image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1" in 721ms (721ms including waiting). Image size: 3279694266 bytes.
+21m         Normal   Started             pod/anomalo-worker-control-746597f8dd-b952t    Started container worker
+21m         Normal   Pulled              pod/anomalo-worker-control-746597f8dd-v5s69    Successfully pulled image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1" in 1.309s (1.309s including waiting). Image size: 3279694266 bytes.
+21m         Normal   Pulled              pod/anomalo-worker-control-746597f8dd-cmrt4    Successfully pulled image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1" in 1.232s (1.232s including waiting). Image size: 3279694266 bytes.
+21m         Normal   Created             pod/anomalo-worker-control-746597f8dd-cmrt4    Created container: worker
+21m         Normal   Started             pod/anomalo-worker-control-746597f8dd-qjbsb    Started container worker
+21m         Normal   Pulled              pod/anomalo-worker-control-746597f8dd-h7nrh    Successfully pulled image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1" in 702ms (702ms including waiting). Image size: 3279694266 bytes.
+21m         Normal   Pulled              pod/anomalo-worker-control-746597f8dd-pvtcf    Successfully pulled image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1" in 756ms (756ms including waiting). Image size: 3279694266 bytes.
+21m         Normal   Created             pod/anomalo-worker-control-746597f8dd-pvtcf    Created container: worker
+21m         Normal   Started             pod/anomalo-worker-control-746597f8dd-pvtcf    Started container worker
+21m         Normal   Created             pod/anomalo-worker-control-746597f8dd-h7nrh    Created container: worker
+21m         Normal   Started             pod/anomalo-worker-control-746597f8dd-h7nrh    Started container worker
+21m         Normal   Started             pod/anomalo-worker-control-746597f8dd-cmrt4    Started container worker
+21m         Normal   Started             pod/anomalo-worker-control-746597f8dd-htvzb    Started container worker
+21m         Normal   Created             pod/anomalo-worker-control-746597f8dd-htvzb    Created container: worker
+21m         Normal   Started             pod/anomalo-worker-control-746597f8dd-v5s69    Started container worker
+21m         Normal   Created             pod/anomalo-worker-control-746597f8dd-v5s69    Created container: worker
+21m         Normal   Created             pod/anomalo-worker-control-746597f8dd-lq7zx    Created container: worker
+21m         Normal   Started             pod/anomalo-worker-control-746597f8dd-lq7zx    Started container worker
+21m         Normal   Pulled              pod/anomalo-worker-control-746597f8dd-htvzb    Successfully pulled image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1" in 1.213s (1.213s including waiting). Image size: 3279694266 bytes.
+20m         Normal   Killing             pod/anomalo-worker-control-746597f8dd-v5s69    Stopping container worker
+20m         Normal   SuccessfulDelete    replicaset/anomalo-worker-control-746597f8dd   Deleted pod: anomalo-worker-control-746597f8dd-hvbkw
+20m         Normal   Killing             pod/anomalo-worker-control-746597f8dd-qjbsb    Stopping container worker
+20m         Normal   Killing             pod/anomalo-worker-control-746597f8dd-lq7zx    Stopping container worker
+20m         Normal   Killing             pod/anomalo-worker-control-746597f8dd-h7nrh    Stopping container worker
+20m         Normal   Killing             pod/anomalo-worker-control-746597f8dd-pvtcf    Stopping container worker
+20m         Normal   ScalingReplicaSet   deployment/anomalo-worker-control              Scaled down replica set anomalo-worker-control-746597f8dd from 10 to 0
+20m         Normal   SuccessfulDelete    replicaset/anomalo-worker-control-746597f8dd   Deleted pod: anomalo-worker-control-746597f8dd-v5s69
+20m         Normal   Killing             pod/anomalo-worker-control-746597f8dd-cmrt4    Stopping container worker
+20m         Normal   Killing             pod/anomalo-worker-control-746597f8dd-b952t    Stopping container worker
+20m         Normal   Killing             pod/anomalo-worker-control-746597f8dd-hvbkw    Stopping container worker
+20m         Normal   Killing             pod/anomalo-worker-control-746597f8dd-6gqp4    Stopping container worker
+20m         Normal   Killing             pod/anomalo-worker-control-746597f8dd-htvzb    Stopping container worker
+19m         Normal   ScalingReplicaSet   deployment/anomalo-worker-control              Scaled up replica set anomalo-worker-control-746597f8dd from 0 to 2
+19m         Normal   Pulling             pod/anomalo-worker-control-746597f8dd-pxmq5    Pulling image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1"
+19m         Normal   Pulling             pod/anomalo-worker-control-746597f8dd-4xps9    Pulling image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1"
+19m         Normal   Pulled              pod/anomalo-worker-control-746597f8dd-pxmq5    Successfully pulled image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1" in 726ms (726ms including waiting). Image size: 3279694266 bytes.
+19m         Normal   Created             pod/anomalo-worker-control-746597f8dd-pxmq5    Created container: worker
+19m         Normal   Started             pod/anomalo-worker-control-746597f8dd-4xps9    Started container worker
+19m         Normal   Created             pod/anomalo-worker-control-746597f8dd-4xps9    Created container: worker
+19m         Normal   Pulled              pod/anomalo-worker-control-746597f8dd-4xps9    Successfully pulled image "us-docker.pkg.dev/anomalo-invpc/joe-test-1/deploy-web:joe-test-1" in 695ms (695ms including waiting). Image size: 3279694266 bytes.
+19m         Normal   Started             pod/anomalo-worker-control-746597f8dd-pxmq5    Started container worker
+18m         Normal   Killing             pod/anomalo-worker-control-746597f8dd-4xps9    Stopping container worker
+18m         Normal   Killing             pod/anomalo-worker-control-746597f8dd-pxmq5    Stopping container worker
+18m         Normal   ScalingReplicaSet   deployment/anomalo-worker-control              Scaled down replica set anomalo-worker-control-746597f8dd from 2 to 0

@@ -1,0 +1,35 @@
+Anomalo Diagnostic Collection Summary
+=====================================
+Collection Date: Sat Sep 13 16:22:57 EDT 2025
+Deployment Type: kubernetes
+Base Domain: joe-anomalo.sandbox.anomalo.com
+Namespace: anomalo
+Output Directory: anomalo_diag_20250913_162215
+Files Collected:
+anomalo_diag_20250913_162215/all_resources_anomalo.txt
+anomalo_diag_20250913_162215/anomalo-env_configmap.yaml
+anomalo_diag_20250913_162215/configmaps_anomalo.txt
+anomalo_diag_20250913_162215/deployments_config_anomalo.yaml
+anomalo_diag_20250913_162215/describe_anomalo-worker-long-running-84f4876c95-rtzw8.txt
+anomalo_diag_20250913_162215/describe_anomalo-worker-long-running-84f4876c95-t4qpc.txt
+anomalo_diag_20250913_162215/describe_dquality-worker-mgmt-8fbd8f74f-qptsg.txt
+anomalo_diag_20250913_162215/describe_dquality-worker-mgmt-8fbd8f74f-xnqks.txt
+anomalo_diag_20250913_162215/diagnostic_summary.txt
+anomalo_diag_20250913_162215/events_anomalo.txt
+anomalo_diag_20250913_162215/ingress_anomalo.txt
+anomalo_diag_20250913_162215/logs_anomalo-updater-6c9678ff74-cdj9d_last250.txt
+anomalo_diag_20250913_162215/logs_anomalo-worker-default-56c85c75c7-52f44_last250.txt
+anomalo_diag_20250913_162215/logs_anomalo-worker-long-running-84f4876c95-vktgh_last250.txt
+anomalo_diag_20250913_162215/logs_anomalo-worker-quick-high-bdbc646ff-6rsq7_last250.txt
+anomalo_diag_20250913_162215/logs_anomalo-worker-quick-low-778c468547-p4lbz_last250.txt
+anomalo_diag_20250913_162215/logs_dquality-web-7bd5c69f7b-64gvb_last250.txt
+anomalo_diag_20250913_162215/logs_dquality-web-7bd5c69f7b-pzq4c_last250.txt
+anomalo_diag_20250913_162215/logs_dquality-worker-mgmt-8fbd8f74f-bk7vv_last250.txt
+anomalo_diag_20250913_162215/logs_dquality-worker-mgmt-8fbd8f74f-md2zp_last250.txt
+anomalo_diag_20250913_162215/logs_redis-5fc897bf4-5t2n9_last250.txt
+anomalo_diag_20250913_162215/metrics.json
+anomalo_diag_20250913_162215/node_metrics.txt
+anomalo_diag_20250913_162215/nodes.txt
+anomalo_diag_20250913_162215/secrets_anomalo.txt
+anomalo_diag_20250913_162215/services_anomalo.txt
+anomalo_diag_20250913_162215/storage_anomalo.txt

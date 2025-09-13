@@ -1,0 +1,250 @@
+[2025-09-13 20:06:15 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: 359952f8-dbb5-4064-9df8-c46257be3cbb)
+[2025-09-13 20:06:25 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: 04d3bff7-9938-4865-afbc-bad2a310a289)
+192.168.3.120 - - [13/Sep/2025:20:06:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:06:25 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.006s) (pid: 157) (reqid: 04d3bff7-9938-4865-afbc-bad2a310a289)
+[2025-09-13 20:06:31 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: 3d5b6946-32f3-4227-baec-9a35978bd061)
+192.168.1.75 - - [13/Sep/2025:20:06:31 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:06:31 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: 3d5b6946-32f3-4227-baec-9a35978bd061)
+[2025-09-13 20:06:46 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: c7b7cd8f-d356-4271-bcc0-11c1a718d857)
+192.168.1.75 - - [13/Sep/2025:20:06:46 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:06:46 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 163) (reqid: c7b7cd8f-d356-4271-bcc0-11c1a718d857)
+[2025-09-13 20:07:01 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: 4662a7f1-0bc0-4e45-9b3d-0d139a0a80fd)
+192.168.1.75 - - [13/Sep/2025:20:07:01 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:07:01 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: 4662a7f1-0bc0-4e45-9b3d-0d139a0a80fd)
+[2025-09-13 20:07:25 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: 688e550b-6d96-432e-81e9-3469bb6613eb)
+192.168.3.120 - - [13/Sep/2025:20:07:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:07:25 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.006s) (pid: 157) (reqid: 688e550b-6d96-432e-81e9-3469bb6613eb)
+192.168.1.75 - - [13/Sep/2025:20:07:30 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:07:30 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: b8fa97eb-93e9-4cf4-ab0a-de84ab3d6c3a)
+[2025-09-13 20:07:30 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.011s) (pid: 157) (reqid: b8fa97eb-93e9-4cf4-ab0a-de84ab3d6c3a)
+[2025-09-13 20:07:31 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 3c9bddfd-c560-43c2-8516-63a49127b7bc)
+192.168.1.75 - - [13/Sep/2025:20:07:31 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:07:31 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 163) (reqid: 3c9bddfd-c560-43c2-8516-63a49127b7bc)
+[2025-09-13 20:07:45 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 308b910f-94fd-4667-9f00-5cc33ad69f9e)
+192.168.1.75 - - [13/Sep/2025:20:07:45 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:07:45 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 163) (reqid: 308b910f-94fd-4667-9f00-5cc33ad69f9e)
+[2025-09-13 20:07:46 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: b5356c41-30cf-4807-bcd2-090ec56d07cf)
+192.168.1.75 - - [13/Sep/2025:20:07:46 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:07:46 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 163) (reqid: b5356c41-30cf-4807-bcd2-090ec56d07cf)
+[2025-09-13 20:08:00 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: c5bfa7f9-5c4a-47d3-b14d-3de40c74aa0d)
+192.168.1.75 - - [13/Sep/2025:20:08:00 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:08:00 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: c5bfa7f9-5c4a-47d3-b14d-3de40c74aa0d)
+[2025-09-13 20:08:15 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 3ea712b9-838a-4c99-bb3b-e55107191d45)
+192.168.1.75 - - [13/Sep/2025:20:08:15 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:08:15 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 163) (reqid: 3ea712b9-838a-4c99-bb3b-e55107191d45)
+[2025-09-13 20:08:16 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 04e3ca46-51b9-4b33-8c1b-e89efef71b57)
+192.168.1.75 - - [13/Sep/2025:20:08:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:08:16 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.003s) (pid: 163) (reqid: 04e3ca46-51b9-4b33-8c1b-e89efef71b57)
+[2025-09-13 20:08:25 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 1351eb02-4b64-4e1c-89d4-b61ab1768e92)
+192.168.3.120 - - [13/Sep/2025:20:08:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:08:25 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 163) (reqid: 1351eb02-4b64-4e1c-89d4-b61ab1768e92)
+[2025-09-13 20:08:30 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: fc5c6c47-bf4a-40e7-8b9c-cfd691baa4c3)
+192.168.1.75 - - [13/Sep/2025:20:08:30 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:08:30 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 163) (reqid: fc5c6c47-bf4a-40e7-8b9c-cfd691baa4c3)
+[2025-09-13 20:09:16 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: 56e32bb2-0b0e-4ac5-a758-fad838149452)
+192.168.1.75 - - [13/Sep/2025:20:09:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:09:16 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: 56e32bb2-0b0e-4ac5-a758-fad838149452)
+[2025-09-13 20:09:25 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: c0fbebea-9385-4e06-adc5-af99d17f0405)
+192.168.3.120 - - [13/Sep/2025:20:09:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:09:25 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: c0fbebea-9385-4e06-adc5-af99d17f0405)
+[2025-09-13 20:09:31 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: e08fcf8e-3289-452a-9a9d-ef06bbe0471b)
+192.168.1.75 - - [13/Sep/2025:20:09:31 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:09:31 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 163) (reqid: e08fcf8e-3289-452a-9a9d-ef06bbe0471b)
+[2025-09-13 20:09:45 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: b9ec3ea6-9df6-456c-bfe0-9f2c7354c891)
+192.168.1.75 - - [13/Sep/2025:20:09:45 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:09:45 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: b9ec3ea6-9df6-456c-bfe0-9f2c7354c891)
+[2025-09-13 20:10:00 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: b738fe35-1fa8-4fbb-a82a-38fea259303a)
+192.168.1.75 - - [13/Sep/2025:20:10:00 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:10:00 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.012s) (pid: 163) (reqid: b738fe35-1fa8-4fbb-a82a-38fea259303a)
+[2025-09-13 20:10:15 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: a5fae74c-44e0-47fb-8c66-437c2f0992d1)
+[2025-09-13 20:10:15 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: a5fae74c-44e0-47fb-8c66-437c2f0992d1)
+192.168.1.75 - - [13/Sep/2025:20:10:15 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:10:16 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: ebd1efed-cfef-4467-8c2f-08a7c3f34a54)
+192.168.1.75 - - [13/Sep/2025:20:10:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:10:16 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 163) (reqid: ebd1efed-cfef-4467-8c2f-08a7c3f34a54)
+[2025-09-13 20:10:25 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: 3fd8e90c-b5d2-45f6-b2e2-e0c9c9a18ac4)
+192.168.3.120 - - [13/Sep/2025:20:10:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:10:25 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.012s) (pid: 157) (reqid: 3fd8e90c-b5d2-45f6-b2e2-e0c9c9a18ac4)
+[2025-09-13 20:10:31 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: b5d2e238-6b15-47d1-89d2-927bb393e396)
+192.168.1.75 - - [13/Sep/2025:20:10:31 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:10:31 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: b5d2e238-6b15-47d1-89d2-927bb393e396)
+[2025-09-13 20:11:00 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 54e47bbf-0d59-4167-b2a3-b92d6d9c5593)
+192.168.1.75 - - [13/Sep/2025:20:11:00 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:11:00 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 163) (reqid: 54e47bbf-0d59-4167-b2a3-b92d6d9c5593)
+[2025-09-13 20:11:01 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: 9c3df29f-4c8e-45f3-99ab-f83f63166240)
+192.168.1.75 - - [13/Sep/2025:20:11:01 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:11:01 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: 9c3df29f-4c8e-45f3-99ab-f83f63166240)
+[2025-09-13 20:11:16 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: bb04a3ec-2e36-4042-b213-8af33a0679ad)
+192.168.1.75 - - [13/Sep/2025:20:11:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:11:16 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 163) (reqid: bb04a3ec-2e36-4042-b213-8af33a0679ad)
+[2025-09-13 20:11:25 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 9124fd53-fa0b-4df8-852a-5ab14e6c351a)
+192.168.3.120 - - [13/Sep/2025:20:11:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:11:25 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.010s) (pid: 163) (reqid: 9124fd53-fa0b-4df8-852a-5ab14e6c351a)
+[2025-09-13 20:11:31 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: c76532f6-8df0-4c1b-9767-c2a090754322)
+192.168.1.75 - - [13/Sep/2025:20:11:31 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:11:31 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: c76532f6-8df0-4c1b-9767-c2a090754322)
+[2025-09-13 20:11:45 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: 433ca2c9-8d53-4380-a7c0-6e4186e0bd4e)
+192.168.1.75 - - [13/Sep/2025:20:11:45 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:11:45 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: 433ca2c9-8d53-4380-a7c0-6e4186e0bd4e)
+[2025-09-13 20:11:46 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: 77a36888-1dd1-4b48-a6cf-92479314967a)
+192.168.1.75 - - [13/Sep/2025:20:11:46 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:11:46 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: 77a36888-1dd1-4b48-a6cf-92479314967a)
+[2025-09-13 20:12:00 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: cb560cd8-a99d-4b79-bbe2-d9d03bd1427c)
+192.168.1.75 - - [13/Sep/2025:20:12:00 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:12:00 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 163) (reqid: cb560cd8-a99d-4b79-bbe2-d9d03bd1427c)
+[2025-09-13 20:12:01 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: c43150d9-9ba0-4d57-9e24-0fa8d5321cae)
+192.168.1.75 - - [13/Sep/2025:20:12:01 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:12:01 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: c43150d9-9ba0-4d57-9e24-0fa8d5321cae)
+[2025-09-13 20:12:15 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 83676b07-1541-4afc-9fae-30ba5f27efbe)
+192.168.1.75 - - [13/Sep/2025:20:12:15 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:12:15 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 163) (reqid: 83676b07-1541-4afc-9fae-30ba5f27efbe)
+[2025-09-13 20:12:16 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: c77fed66-db7d-420c-839f-778c9a13a1ee)
+192.168.1.75 - - [13/Sep/2025:20:12:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:12:16 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: c77fed66-db7d-420c-839f-778c9a13a1ee)
+[2025-09-13 20:12:25 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: 692d215b-01fc-4056-baf2-dbdd0700a800)
+192.168.3.120 - - [13/Sep/2025:20:12:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:12:25 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 151) (reqid: 692d215b-01fc-4056-baf2-dbdd0700a800)
+[2025-09-13 20:12:31 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: 613b69f6-1f6b-4031-b871-0fd4d9f177a5)
+192.168.1.75 - - [13/Sep/2025:20:12:31 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:12:31 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: 613b69f6-1f6b-4031-b871-0fd4d9f177a5)
+[2025-09-13 20:12:45 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 2f9ecde4-2788-4efb-a231-c038871394d9)
+192.168.1.75 - - [13/Sep/2025:20:12:45 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:12:45 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 163) (reqid: 2f9ecde4-2788-4efb-a231-c038871394d9)
+[2025-09-13 20:13:01 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: 6ebbf1fb-81dd-4b2e-908b-942a1c5ffd37)
+192.168.1.75 - - [13/Sep/2025:20:13:01 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:13:01 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: 6ebbf1fb-81dd-4b2e-908b-942a1c5ffd37)
+[2025-09-13 20:13:16 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: e62e8751-242a-4d2f-9d0f-b26e0b1e9302)
+192.168.1.75 - - [13/Sep/2025:20:13:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:13:16 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 157) (reqid: e62e8751-242a-4d2f-9d0f-b26e0b1e9302)
+[2025-09-13 20:13:25 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: 30f39a2d-5be8-46b8-ad90-8565ffac352d)
+192.168.3.120 - - [13/Sep/2025:20:13:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:13:25 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: 30f39a2d-5be8-46b8-ad90-8565ffac352d)
+[2025-09-13 20:13:46 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: 6c467ac1-4686-457b-a7c2-3064b2fd1a9e)
+192.168.1.75 - - [13/Sep/2025:20:13:46 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:13:46 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: 6c467ac1-4686-457b-a7c2-3064b2fd1a9e)
+[2025-09-13 20:14:01 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 0f140df7-9de1-46c5-a755-8e5239c0b6d1)
+192.168.1.75 - - [13/Sep/2025:20:14:01 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:14:01 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.003s) (pid: 163) (reqid: 0f140df7-9de1-46c5-a755-8e5239c0b6d1)
+[2025-09-13 20:14:25 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: 802235db-e2ee-436a-be78-7924c28fd39a)
+192.168.3.120 - - [13/Sep/2025:20:14:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:14:25 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 151) (reqid: 802235db-e2ee-436a-be78-7924c28fd39a)
+[2025-09-13 20:14:31 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 4913fbb3-71fc-482a-bb15-6bf1d7f49b6b)
+192.168.1.75 - - [13/Sep/2025:20:14:31 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:14:31 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 163) (reqid: 4913fbb3-71fc-482a-bb15-6bf1d7f49b6b)
+[2025-09-13 20:14:31 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: edae0966-05be-41b1-930e-dae8e89e6ea6)
+192.168.1.75 - - [13/Sep/2025:20:14:31 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:14:31 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: edae0966-05be-41b1-930e-dae8e89e6ea6)
+[2025-09-13 20:15:16 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: 484cdf62-dccc-4360-a38c-eda955b32bd4)
+192.168.1.75 - - [13/Sep/2025:20:15:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:15:16 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: 484cdf62-dccc-4360-a38c-eda955b32bd4)
+[2025-09-13 20:15:25 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: ced15f33-d266-49ca-95d1-d0d5fbab22dd)
+192.168.3.120 - - [13/Sep/2025:20:15:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:15:25 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 151) (reqid: ced15f33-d266-49ca-95d1-d0d5fbab22dd)
+[2025-09-13 20:15:31 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: ae34fb40-02bf-4cb1-bc66-220afede8dba)
+192.168.1.75 - - [13/Sep/2025:20:15:31 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:15:31 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: ae34fb40-02bf-4cb1-bc66-220afede8dba)
+[2025-09-13 20:16:16 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: a732ead5-2671-4ff7-be05-1693572500aa)
+192.168.1.75 - - [13/Sep/2025:20:16:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:16:16 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: a732ead5-2671-4ff7-be05-1693572500aa)
+[2025-09-13 20:16:16 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: 947acb36-9d6d-4404-b706-a089da5c6a33)
+192.168.1.75 - - [13/Sep/2025:20:16:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:16:16 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: 947acb36-9d6d-4404-b706-a089da5c6a33)
+[2025-09-13 20:16:25 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: 71ef161b-d7a0-4fe8-88c3-d395e4d18346)
+192.168.3.120 - - [13/Sep/2025:20:16:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:16:25 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.015s) (pid: 151) (reqid: 71ef161b-d7a0-4fe8-88c3-d395e4d18346)
+[2025-09-13 20:16:31 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: e79a9981-7324-4a98-bf63-1a69f888e0f8)
+192.168.1.75 - - [13/Sep/2025:20:16:31 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:16:31 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: e79a9981-7324-4a98-bf63-1a69f888e0f8)
+[2025-09-13 20:16:46 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: af08773d-c75a-4676-92b1-f401aa5bdd2e)
+192.168.1.75 - - [13/Sep/2025:20:16:46 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:16:46 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 163) (reqid: af08773d-c75a-4676-92b1-f401aa5bdd2e)
+[2025-09-13 20:17:01 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: d2ff0704-34e1-4856-9c63-f964c09efcb7)
+192.168.1.75 - - [13/Sep/2025:20:17:01 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:17:01 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: d2ff0704-34e1-4856-9c63-f964c09efcb7)
+[2025-09-13 20:17:16 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: e8beea42-7a68-4754-9f6d-d6e81861e46c)
+192.168.1.75 - - [13/Sep/2025:20:17:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:17:16 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: e8beea42-7a68-4754-9f6d-d6e81861e46c)
+[2025-09-13 20:17:25 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: 193fbf5e-c45f-4b90-9594-a12ede904f37)
+192.168.3.120 - - [13/Sep/2025:20:17:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:17:25 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: 193fbf5e-c45f-4b90-9594-a12ede904f37)
+[2025-09-13 20:17:46 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: d558b1c9-5540-4cc5-9a4e-7dddc0d7f993)
+192.168.1.75 - - [13/Sep/2025:20:17:46 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:17:46 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 163) (reqid: d558b1c9-5540-4cc5-9a4e-7dddc0d7f993)
+[2025-09-13 20:17:46 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: 0387518f-dab1-43ac-9410-61278b0a6bf3)
+192.168.1.75 - - [13/Sep/2025:20:17:46 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:17:46 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: 0387518f-dab1-43ac-9410-61278b0a6bf3)
+[2025-09-13 20:18:01 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 7c39e3eb-8cea-45e5-ba83-d0696b31f76f)
+192.168.1.75 - - [13/Sep/2025:20:18:01 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:18:01 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 163) (reqid: 7c39e3eb-8cea-45e5-ba83-d0696b31f76f)
+[2025-09-13 20:18:16 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: c4dfe7c0-15d3-4d4b-b1b6-244c35416711)
+192.168.1.75 - - [13/Sep/2025:20:18:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:18:16 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 151) (reqid: c4dfe7c0-15d3-4d4b-b1b6-244c35416711)
+[2025-09-13 20:18:16 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: c4abacdd-8599-4ea6-8d18-526fb1ca3162)
+192.168.1.75 - - [13/Sep/2025:20:18:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:18:16 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 163) (reqid: c4abacdd-8599-4ea6-8d18-526fb1ca3162)
+[2025-09-13 20:18:25 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: c1790267-fc58-478e-8900-acc35460dd3c)
+192.168.3.120 - - [13/Sep/2025:20:18:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:18:25 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 151) (reqid: c1790267-fc58-478e-8900-acc35460dd3c)
+[2025-09-13 20:18:31 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: aafade5c-40b5-4252-b5f8-890d377ad83e)
+192.168.1.75 - - [13/Sep/2025:20:18:31 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:18:31 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 151) (reqid: aafade5c-40b5-4252-b5f8-890d377ad83e)
+[2025-09-13 20:18:46 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: 9c38b6c3-438b-4be3-9062-591e929501c0)
+192.168.1.75 - - [13/Sep/2025:20:18:46 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:18:46 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: 9c38b6c3-438b-4be3-9062-591e929501c0)
+[2025-09-13 20:19:01 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: 16a6fba4-533e-41a4-b0be-e728f5bb5262)
+192.168.1.75 - - [13/Sep/2025:20:19:01 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:19:01 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: 16a6fba4-533e-41a4-b0be-e728f5bb5262)
+[2025-09-13 20:19:16 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: 0b9bbbf0-ef35-4749-9a1f-87b9bf41059d)
+192.168.1.75 - - [13/Sep/2025:20:19:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:19:16 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 157) (reqid: 0b9bbbf0-ef35-4749-9a1f-87b9bf41059d)
+[2025-09-13 20:19:16 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: 2d674fae-21f7-4eca-a5d0-5a034d4c08c2)
+192.168.1.75 - - [13/Sep/2025:20:19:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:19:16 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: 2d674fae-21f7-4eca-a5d0-5a034d4c08c2)
+[2025-09-13 20:19:25 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 4718e5f7-876f-4521-ba4c-4970336d5f0b)
+192.168.3.120 - - [13/Sep/2025:20:19:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:19:25 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 163) (reqid: 4718e5f7-876f-4521-ba4c-4970336d5f0b)
+[2025-09-13 20:19:31 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 23e82aae-4814-4409-9a22-79ab5903823c)
+192.168.1.75 - - [13/Sep/2025:20:19:31 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:19:31 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 163) (reqid: 23e82aae-4814-4409-9a22-79ab5903823c)
+[2025-09-13 20:19:46 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: 2e0f37c4-cb33-47b4-9bf6-1eafbed51aa8)
+192.168.1.75 - - [13/Sep/2025:20:19:46 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:19:46 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: 2e0f37c4-cb33-47b4-9bf6-1eafbed51aa8)
+[2025-09-13 20:20:01 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 4b6d53c9-db1f-4551-a20e-58d43c1af391)
+192.168.1.75 - - [13/Sep/2025:20:20:01 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:20:01 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 163) (reqid: 4b6d53c9-db1f-4551-a20e-58d43c1af391)
+[2025-09-13 20:20:01 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: c5ce4cc4-7e15-4c32-b818-f2d490d38005)
+192.168.1.75 - - [13/Sep/2025:20:20:01 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:20:01 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: c5ce4cc4-7e15-4c32-b818-f2d490d38005)
+[2025-09-13 20:20:16 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: e2d89f93-00f5-487a-91d6-443283009a17)
+192.168.1.75 - - [13/Sep/2025:20:20:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:20:16 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: e2d89f93-00f5-487a-91d6-443283009a17)
+[2025-09-13 20:20:25 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 5a6ba617-3e33-4e28-be33-9df320f129da)
+192.168.3.120 - - [13/Sep/2025:20:20:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:20:25 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 163) (reqid: 5a6ba617-3e33-4e28-be33-9df320f129da)
+[2025-09-13 20:20:31 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 6010c6f9-8e56-4f03-ac49-356c139861a8)
+192.168.1.75 - - [13/Sep/2025:20:20:31 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:20:31 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 163) (reqid: 6010c6f9-8e56-4f03-ac49-356c139861a8)
+[2025-09-13 20:21:01 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: c7b742e5-4908-4660-8b31-88a8660d6987)
+192.168.1.75 - - [13/Sep/2025:20:21:01 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:21:01 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: c7b742e5-4908-4660-8b31-88a8660d6987)
+[2025-09-13 20:21:16 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: 1adfab86-177f-45f2-ab71-58ad6a636c5b)
+192.168.1.75 - - [13/Sep/2025:20:21:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:21:16 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.003s) (pid: 163) (reqid: 1adfab86-177f-45f2-ab71-58ad6a636c5b)
+[2025-09-13 20:21:25 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: dfcdbf32-cc4f-4a65-ad3f-9ceb084890d1)
+192.168.3.120 - - [13/Sep/2025:20:21:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:21:25 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.006s) (pid: 163) (reqid: dfcdbf32-cc4f-4a65-ad3f-9ceb084890d1)
+[2025-09-13 20:21:31 +0000] [163] [INFO] Started: GET /health_check (pid: 163) (reqid: edf2c0b6-2f99-4d73-ac9d-4a1de6aa048f)
+192.168.1.75 - - [13/Sep/2025:20:21:31 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:21:31 +0000] [163] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 163) (reqid: edf2c0b6-2f99-4d73-ac9d-4a1de6aa048f)
+[2025-09-13 20:21:46 +0000] [157] [INFO] Started: GET /health_check (pid: 157) (reqid: 9c42e528-18f0-4d0e-aeb2-b4ea6b0566fc)
+192.168.1.75 - - [13/Sep/2025:20:21:46 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:21:46 +0000] [157] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 157) (reqid: 9c42e528-18f0-4d0e-aeb2-b4ea6b0566fc)
+[2025-09-13 20:22:01 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: 29473b7c-687b-4842-895b-033f92d5e7ed)
+192.168.1.75 - - [13/Sep/2025:20:22:01 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:22:01 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: 29473b7c-687b-4842-895b-033f92d5e7ed)
+[2025-09-13 20:22:16 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: a8c5d740-4bf7-4c6d-89ae-e42975e2ee33)
+192.168.1.75 - - [13/Sep/2025:20:22:16 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "ELB-HealthChecker/2.0"
+[2025-09-13 20:22:16 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.004s) (pid: 151) (reqid: a8c5d740-4bf7-4c6d-89ae-e42975e2ee33)
+[2025-09-13 20:22:25 +0000] [151] [INFO] Started: GET /health_check (pid: 151) (reqid: 21eeb6f4-5cc8-491d-9f89-341ba38ecf1f)
+192.168.3.120 - - [13/Sep/2025:20:22:25 +0000] "GET /health_check HTTP/1.1" 200 20 "-" "kube-probe/1.33+"
+[2025-09-13 20:22:25 +0000] [151] [INFO] Finished: GET /health_check 200 (duration: 0.005s) (pid: 151) (reqid: 21eeb6f4-5cc8-491d-9f89-341ba38ecf1f)
