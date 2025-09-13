@@ -338,19 +338,19 @@ gather_k8s_info() {
     init_progress $total_steps
 
     # Get all resources in the specified namespace
-    safe_execute "kubectl get all -n '$namespace' -o wide" "$output_dir/all_resources_${namespace}.txt" "All resources in $namespace namespace"
+    safe_execute "kubectl get all -n '$namespace' -o wide" "$output_dir/kubernetes/all_resources_${namespace}.txt" "All resources in $namespace namespace"
     update_progress
 
     # Get events for the namespace
-    safe_execute "kubectl get events -n '$namespace' --sort-by='.lastTimestamp'" "$output_dir/events_${namespace}.txt" "Events in $namespace namespace"
+    safe_execute "kubectl get events -n '$namespace' --sort-by='.lastTimestamp'" "$output_dir/kubernetes/events/events_${namespace}.txt" "Events in $namespace namespace"
     update_progress
 
     # Get node information
-    safe_execute "kubectl get nodes -o wide" "$output_dir/nodes.txt" "Cluster nodes information"
+    safe_execute "kubectl get nodes -o wide" "$output_dir/system/nodes.txt" "Cluster nodes information"
     update_progress
 
     # Get node metrics if available
-    kubectl top nodes > "$output_dir/node_metrics.txt" 2>/dev/null || log_warning "Node metrics not available (metrics-server may not be installed)"
+    kubectl top nodes > "$output_dir/metrics/node_metrics.txt" 2>/dev/null || log_warning "Node metrics not available (metrics-server may not be installed)"
     update_progress
 
     # Check the status of each pod and fetch logs or describe
@@ -384,10 +384,10 @@ gather_k8s_info() {
                     if status=$(kubectl get pod "$pod" -n "$namespace" -o jsonpath='{.status.phase}' 2>/dev/null); then
                         if [[ "$status" != "Running" ]]; then
                             # Describe pod if not in Running state
-                            safe_execute "kubectl describe pod '$pod' -n '$namespace'" "$output_dir/describe_${pod}.txt" "Pod description for $pod"
+                            safe_execute "kubectl describe pod '$pod' -n '$namespace'" "$output_dir/kubernetes/pods/describe_${pod}.txt" "Pod description for $pod"
                         else
                             # Get the last N lines of logs for running pods
-                            safe_execute "kubectl logs '$pod' -n '$namespace' --all-containers=true --tail=$log_lines" "$output_dir/logs_${pod}_last${log_lines}.txt" "Logs for pod $pod"
+                            safe_execute "kubectl logs '$pod' -n '$namespace' --all-containers=true --tail=$log_lines" "$output_dir/kubernetes/logs/logs_${pod}_last${log_lines}.txt" "Logs for pod $pod"
                         fi
                     else
                         log_warning "Could not get status for pod: $pod"
@@ -401,23 +401,23 @@ gather_k8s_info() {
     fi
 
     # Get deployment configurations in the specified namespace
-    safe_execute "kubectl get deployments -n '$namespace' -o yaml" "$output_dir/deployments_config_${namespace}.yaml" "Deployment configurations"
+    safe_execute "kubectl get deployments -n '$namespace' -o yaml" "$output_dir/kubernetes/configs/deployments_config_${namespace}.yaml" "Deployment configurations"
     update_progress
 
     # Get services
-    safe_execute "kubectl get services -n '$namespace' -o wide" "$output_dir/services_${namespace}.txt" "Services in $namespace namespace"
+    safe_execute "kubectl get services -n '$namespace' -o wide" "$output_dir/kubernetes/services_${namespace}.txt" "Services in $namespace namespace"
     update_progress
 
     # Get ingress
-    safe_execute "kubectl get ingress -n '$namespace' -o wide" "$output_dir/ingress_${namespace}.txt" "Ingress in $namespace namespace"
+    safe_execute "kubectl get ingress -n '$namespace' -o wide" "$output_dir/kubernetes/ingress_${namespace}.txt" "Ingress in $namespace namespace"
     update_progress
 
     # Get persistent volumes and claims
-    safe_execute "kubectl get pv,pvc -n '$namespace'" "$output_dir/storage_${namespace}.txt" "Storage resources in $namespace namespace"
+    safe_execute "kubectl get pv,pvc -n '$namespace'" "$output_dir/kubernetes/storage_${namespace}.txt" "Storage resources in $namespace namespace"
     update_progress
 
     # List ConfigMaps names, each on a new line, in the specified namespace
-    safe_execute "kubectl get configmaps -n '$namespace' -o jsonpath=\"{range .items[*]}{.metadata.name}{'\n'}{end}\"" "$output_dir/configmaps_${namespace}.txt" "ConfigMap names in $namespace namespace"
+    safe_execute "kubectl get configmaps -n '$namespace' -o jsonpath=\"{range .items[*]}{.metadata.name}{'\n'}{end}\"" "$output_dir/kubernetes/configs/configmaps_${namespace}.txt" "ConfigMap names in $namespace namespace"
     update_progress
     
     # Get the values from all ConfigMaps in the namespace
@@ -426,7 +426,7 @@ gather_k8s_info() {
     if configmaps=$(kubectl get configmaps -n "$namespace" -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' 2>/dev/null); then
         while IFS= read -r configmap; do
             if [[ -n "$configmap" ]]; then
-                safe_execute "kubectl get configmap '$configmap' -n '$namespace' -o yaml" "$output_dir/${configmap}_configmap.yaml" "ConfigMap $configmap"
+                safe_execute "kubectl get configmap '$configmap' -n '$namespace' -o yaml" "$output_dir/kubernetes/configs/${configmap}_configmap.yaml" "ConfigMap $configmap"
                 update_progress
             fi
         done <<< "$configmaps"
@@ -435,7 +435,7 @@ gather_k8s_info() {
     fi
     
     # List Secret names, each on a new line, in the specified namespace
-    safe_execute "kubectl get secrets -n '$namespace' -o jsonpath=\"{range .items[*]}{.metadata.name}{'\n'}{end}\"" "$output_dir/secrets_${namespace}.txt" "Secret names in $namespace namespace"
+    safe_execute "kubectl get secrets -n '$namespace' -o jsonpath=\"{range .items[*]}{.metadata.name}{'\n'}{end}\"" "$output_dir/kubernetes/configs/secrets_${namespace}.txt" "Secret names in $namespace namespace"
     update_progress
 
     # Get the values from specific Secrets if they exist (for debugging purposes)
@@ -443,7 +443,7 @@ gather_k8s_info() {
     for secret in "anomalo-env-secrets"; do
         if kubectl get secret "$secret" -n "$namespace" &> /dev/null; then
             log_warning "Collecting values from Secret '$secret' (contains sensitive data)"
-            safe_execute "kubectl get secret '$secret' -n '$namespace' -o yaml" "$output_dir/${secret}_secret.yaml" "Secret $secret values"
+            safe_execute "kubectl get secret '$secret' -n '$namespace' -o yaml" "$output_dir/kubernetes/configs/${secret}_secret.yaml" "Secret $secret values"
         else
             log_info "Secret '$secret' not found in namespace '$namespace'"
         fi
@@ -476,34 +476,34 @@ gather_host_info() {
     log_info "Gathering host system information..."
 
     # Get the host's OS and kernel version
-    safe_execute "uname -a" "$output_dir/host_os_kernel.txt" "Host OS and kernel version"
+    safe_execute "uname -a" "$output_dir/system/host_os_kernel.txt" "Host OS and kernel version"
 
     # Get the host's CPU and memory info (Linux-specific commands)
     if command -v lscpu &> /dev/null; then
-        safe_execute "lscpu" "$output_dir/host_cpu_info.txt" "Host CPU information"
+        safe_execute "lscpu" "$output_dir/system/host_cpu_info.txt" "Host CPU information"
     else
         log_warning "lscpu not available, trying alternative..."
-        safe_execute "sysctl -n machdep.cpu.brand_string 2>/dev/null || echo 'CPU info not available'" "$output_dir/host_cpu_info.txt" "Host CPU information (alternative)"
+        safe_execute "sysctl -n machdep.cpu.brand_string 2>/dev/null || echo 'CPU info not available'" "$output_dir/system/host_cpu_info.txt" "Host CPU information (alternative)"
     fi
 
     if command -v free &> /dev/null; then
-        safe_execute "free -h" "$output_dir/host_memory_info.txt" "Host memory information"
+        safe_execute "free -h" "$output_dir/system/host_memory_info.txt" "Host memory information"
     else
         log_warning "free command not available, trying alternative..."
-        safe_execute "vm_stat 2>/dev/null || echo 'Memory info not available'" "$output_dir/host_memory_info.txt" "Host memory information (alternative)"
+        safe_execute "vm_stat 2>/dev/null || echo 'Memory info not available'" "$output_dir/system/host_memory_info.txt" "Host memory information (alternative)"
     fi
 
     # Get the host's disk usage
-    safe_execute "df -h" "$output_dir/host_disk_usage.txt" "Host disk usage"
+    safe_execute "df -h" "$output_dir/system/host_disk_usage.txt" "Host disk usage"
 
     # Get the host's network interfaces and routing table
     if command -v ip &> /dev/null; then
-        safe_execute "ip a" "$output_dir/host_network_interfaces.txt" "Host network interfaces"
-        safe_execute "ip route" "$output_dir/host_routing_table.txt" "Host routing table"
+        safe_execute "ip a" "$output_dir/network/host_network_interfaces.txt" "Host network interfaces"
+        safe_execute "ip route" "$output_dir/network/host_routing_table.txt" "Host routing table"
     else
         log_warning "ip command not available, trying alternative..."
-        safe_execute "ifconfig 2>/dev/null || echo 'Network info not available'" "$output_dir/host_network_interfaces.txt" "Host network interfaces (alternative)"
-        safe_execute "netstat -rn 2>/dev/null || echo 'Routing info not available'" "$output_dir/host_routing_table.txt" "Host routing table (alternative)"
+        safe_execute "ifconfig 2>/dev/null || echo 'Network info not available'" "$output_dir/network/host_network_interfaces.txt" "Host network interfaces (alternative)"
+        safe_execute "netstat -rn 2>/dev/null || echo 'Routing info not available'" "$output_dir/network/host_routing_table.txt" "Host routing table (alternative)"
     fi
 
     log_success "Host system information gathered"
@@ -530,29 +530,29 @@ gather_docker_info() {
     check_docker_connection
     
     # Get the list of running containers
-    safe_execute "docker ps" "$output_dir/running_containers.txt" "Running containers"
+    safe_execute "docker ps" "$output_dir/docker/containers/running_containers.txt" "Running containers"
     update_progress
 
     # Get the list of all containers
-    safe_execute "docker ps -a" "$output_dir/all_containers.txt" "All containers"
+    safe_execute "docker ps -a" "$output_dir/docker/containers/all_containers.txt" "All containers"
     update_progress
 
     # Get the list of all images
-    safe_execute "docker images" "$output_dir/all_images.txt" "All images"
+    safe_execute "docker images" "$output_dir/docker/images.txt" "All images"
     update_progress
 
     # Get the list of all volumes
-    safe_execute "docker volume ls" "$output_dir/all_volumes.txt" "All volumes"
+    safe_execute "docker volume ls" "$output_dir/docker/volumes.txt" "All volumes"
     update_progress
 
     # Get the list of all networks
-    safe_execute "docker network ls" "$output_dir/all_networks.txt" "All networks"
+    safe_execute "docker network ls" "$output_dir/network/docker_networks.txt" "All networks"
     update_progress
 
     # Get Docker system information
-    safe_execute "docker system df" "$output_dir/docker_system_df.txt" "Docker system disk usage"
+    safe_execute "docker system df" "$output_dir/docker/system_df.txt" "Docker system disk usage"
     update_progress
-    safe_execute "docker version" "$output_dir/docker_version.txt" "Docker version information"
+    safe_execute "docker version" "$output_dir/docker/version.txt" "Docker version information"
     update_progress
 
     # Get the list of all logs
@@ -562,7 +562,7 @@ gather_docker_info() {
         while IFS= read -r name; do
             if [[ -n "$name" ]]; then
                 # Get container logs
-                if docker logs -n "$log_lines" "$name" >"${output_dir}/logs_${name}_stdout.txt" 2>"${output_dir}/logs_${name}_stderr.txt" 2>/dev/null; then
+                if docker logs -n "$log_lines" "$name" >"${output_dir}/docker/logs/logs_${name}_stdout.txt" 2>"${output_dir}/docker/logs/logs_${name}_stderr.txt" 2>/dev/null; then
                     log_success "Logs for container $name"
                 else
                     log_warning "Could not get logs for container: $name"
@@ -579,7 +579,7 @@ gather_docker_info() {
     if containers=$(docker ps -a --format '{{.Names}}' 2>/dev/null); then
         while IFS= read -r name; do
             if [[ -n "$name" ]]; then
-                if docker inspect "$name" > "$output_dir/inspect_${name}.txt" 2>/dev/null; then
+                if docker inspect "$name" > "$output_dir/docker/inspect/inspect_${name}.txt" 2>/dev/null; then
                     log_success "Inspection data for container $name"
                 else
                     log_warning "Could not inspect container: $name"
@@ -652,10 +652,31 @@ main() {
         output_dir="anomalo_diag_$(date +%Y%m%d_%H%M%S)"
     fi
     
-    log_info "Creating output directory: $output_dir"
+    log_info "Creating diagnostic export directory: $output_dir"
     if ! mkdir -p "$output_dir"; then
         log_error "Failed to create output directory: $output_dir"
         exit 1
+    fi
+    
+    # Create subdirectories for organized file storage
+    log_info "Setting up organized directory structure..."
+    mkdir -p "$output_dir/logs"
+    mkdir -p "$output_dir/configs"
+    mkdir -p "$output_dir/system"
+    mkdir -p "$output_dir/network"
+    mkdir -p "$output_dir/metrics"
+    
+    if [[ "$type" == "kubernetes" ]]; then
+        mkdir -p "$output_dir/kubernetes"
+        mkdir -p "$output_dir/kubernetes/pods"
+        mkdir -p "$output_dir/kubernetes/logs"
+        mkdir -p "$output_dir/kubernetes/configs"
+        mkdir -p "$output_dir/kubernetes/events"
+    elif [[ "$type" == "docker" ]]; then
+        mkdir -p "$output_dir/docker"
+        mkdir -p "$output_dir/docker/containers"
+        mkdir -p "$output_dir/docker/logs"
+        mkdir -p "$output_dir/docker/inspect"
     fi
 
     # Gather diagnostic information based on deployment type
@@ -673,11 +694,11 @@ main() {
 
     # Fetch metrics from the specified URL
     log_info "Fetching health check metrics..."
-    if curl -s --connect-timeout 30 --max-time 60 "$health_check_url" -o "$output_dir/metrics.json"; then
+    if curl -s --connect-timeout 30 --max-time 60 "$health_check_url" -o "$output_dir/metrics/health_check.json"; then
         log_success "Metrics data fetched successfully from $health_check_url"
     else
         log_warning "Failed to fetch metrics data from $health_check_url (continuing anyway)"
-        echo "{}" > "$output_dir/metrics.json"  # Create empty JSON file
+        echo "{}" > "$output_dir/metrics/health_check.json"  # Create empty JSON file
     fi
     update_progress
 
