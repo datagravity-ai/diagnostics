@@ -250,6 +250,7 @@ anomalo_diag_20241201_143022.zip
 ├── configmaps_anomalo.txt
 ├── anomalo-env_configmap.yaml
 ├── nginx-conf_configmap.yaml
+├── [other-configmap]_configmap.yaml  # All ConfigMaps in namespace
 ├── secrets_anomalo.txt
 ├── anomalo-env-secrets_secret.yaml  # Contains sensitive data
 ├── services_anomalo.txt
@@ -326,7 +327,7 @@ If you encounter issues not covered here:
 ### Sensitive Data Collection
 
 The script collects the following sensitive data for debugging purposes:
-- **ConfigMap values**: `anomalo-env` and `nginx-conf` ConfigMaps
+- **ConfigMap values**: All ConfigMaps in the namespace (including `anomalo-env`, `nginx-conf`, etc.)
 - **Secret values**: `anomalo-env-secrets` Secret (if it exists)
 
 **Important**: These files contain sensitive information like passwords, API keys, and configuration data. Review the contents before sharing with support teams.

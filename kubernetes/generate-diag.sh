@@ -257,15 +257,18 @@ gather_k8s_info() {
     # List ConfigMaps names, each on a new line, in the specified namespace
     safe_execute "kubectl get configmaps -n '$namespace' -o jsonpath=\"{range .items[*]}{.metadata.name}{'\n'}{end}\"" "$output_dir/configmaps_${namespace}.txt" "ConfigMap names in $namespace namespace"
     
-    # Get the values from specific ConfigMaps if they exist
-    log_info "Gathering ConfigMap values..."
-    for configmap in "anomalo-env" "nginx-conf"; do
-        if kubectl get configmap "$configmap" -n "$namespace" &> /dev/null; then
-            safe_execute "kubectl get configmap '$configmap' -n '$namespace' -o yaml" "$output_dir/${configmap}_configmap.yaml" "ConfigMap $configmap"
-        else
-            log_warning "ConfigMap '$configmap' not found in namespace '$namespace'"
-        fi
-    done
+    # Get the values from all ConfigMaps in the namespace
+    log_info "Gathering all ConfigMap values..."
+    local configmaps
+    if configmaps=$(kubectl get configmaps -n "$namespace" -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' 2>/dev/null); then
+        while IFS= read -r configmap; do
+            if [[ -n "$configmap" ]]; then
+                safe_execute "kubectl get configmap '$configmap' -n '$namespace' -o yaml" "$output_dir/${configmap}_configmap.yaml" "ConfigMap $configmap"
+            fi
+        done <<< "$configmaps"
+    else
+        log_warning "Could not list ConfigMaps in namespace: $namespace"
+    fi
     
     # List Secret names, each on a new line, in the specified namespace
     safe_execute "kubectl get secrets -n '$namespace' -o jsonpath=\"{range .items[*]}{.metadata.name}{'\n'}{end}\"" "$output_dir/secrets_${namespace}.txt" "Secret names in $namespace namespace"

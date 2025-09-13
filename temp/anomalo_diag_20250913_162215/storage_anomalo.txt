@@ -1,7 +1,0 @@
-NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                          STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
-persistentvolume/pvc-525df9c8-8c50-4779-a09d-fdad3c9e597e   10Gi       RWO            Delete           Bound    anomalo/postgres-pvc           gp2            <unset>                          319d
-persistentvolume/pvc-a6f8f7b2-388a-4b80-beae-ea4fe35e5646   10Gi       RWO            Delete           Bound    default/postgres-pvc           gp2            <unset>                          319d
-persistentvolume/pvc-e54c1d28-2b06-411f-8e28-c6f5a083d385   8Gi        RWO            Delete           Bound    prometheus/prometheus-server   gp2            <unset>                          227d
-
-NAME                                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
-persistentvolumeclaim/postgres-pvc   Bound    pvc-525df9c8-8c50-4779-a09d-fdad3c9e597e   10Gi       RWO            gp2            <unset>                 319d
