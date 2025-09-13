@@ -113,6 +113,8 @@ The script collects Docker-specific diagnostic information including:
 | `--domain` | `-d` | Base domain URL for your Anomalo instance (supports various formats) | *required* |
 | `--output` | `-o` | Custom output directory for diagnostic files | Auto-generated timestamped name |
 | `--logs` | `-l` | Number of log lines to collect per container/pod | `250` |
+| `--max-pods` | `-p` | Maximum number of pods to process (large deployments) | `50` |
+| `--max-containers` | `-c` | Maximum number of containers to process (large deployments) | `50` |
 | `--help` | `-h` | Show help message and exit | - |
 
 ## Domain Format
@@ -231,6 +233,72 @@ Progress: [████████████░░░░░░░░] 60% (15
 - Container listing and inspection
 - Log collection (each container is a step)
 - Final processing and compression
+
+## Large Deployment Handling
+
+The diagnostic script includes intelligent handling for large deployments with many pods or containers:
+
+### Automatic Detection
+
+When the script detects more than 50 pods or containers, it will:
+
+1. **Warn the user** about the large deployment
+2. **Explain the risks** (long collection time, large files, resource usage)
+3. **Present options** for handling the large deployment
+
+### User Options
+
+When a large deployment is detected, you'll see:
+
+```
+WARNING: Large deployment detected: 150 pods found (limit: 50)
+
+This deployment has a large number of pods which could:
+  - Take a very long time to collect (potentially hours)
+  - Create very large diagnostic files (potentially GBs)
+  - Consume significant system resources
+
+Options:
+  1) Continue with all pods (not recommended)
+  2) Collect only the first 50 pods (recommended)
+  3) Skip pod collection entirely
+  4) Exit and adjust limits
+```
+
+### Command Line Overrides
+
+You can pre-configure limits to avoid interactive prompts:
+
+```bash
+# Increase pod limit to 100
+./generate-diag.sh -d anomalo.company.com -p 100
+
+# Increase container limit to 200
+./generate-diag.sh -d anomalo.company.com -c 200
+
+# Set both limits
+./generate-diag.sh -d anomalo.company.com -p 100 -c 200
+
+# Disable limits (collect all - use with caution)
+./generate-diag.sh -d anomalo.company.com -p 9999 -c 9999
+```
+
+### Recommended Strategies
+
+**For large Kubernetes deployments:**
+- Use `-p 50` to limit pod collection
+- Focus on problematic pods first
+- Collect logs from specific pods manually if needed
+
+**For large Docker deployments:**
+- Use `-c 50` to limit container collection
+- Prioritize running containers over stopped ones
+- Consider collecting logs from specific containers manually
+
+**For very large deployments:**
+- Use `-p 20 -c 20` for quick diagnostics
+- Collect only essential information
+- Use targeted kubectl/docker commands for specific issues
 
 ## Prerequisites
 

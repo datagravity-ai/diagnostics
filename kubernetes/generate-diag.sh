@@ -15,6 +15,8 @@ custom_output_dir=""
 log_lines="250"
 total_steps=0
 current_step=0
+max_pods=50
+max_containers=50
 
 # Error handling and utility functions
 log_error() {
@@ -67,6 +69,55 @@ update_progress() {
 complete_progress() {
     printf "\rProgress: [████████████████████] 100%% (%d/%d)\n" "$total_steps" "$total_steps"
     echo ""
+}
+
+# Handle large deployments
+check_large_deployment() {
+    local resource_type="$1"
+    local count="$2"
+    local max_count="$3"
+    
+    if [[ "$count" -gt "$max_count" ]]; then
+        log_warning "Large deployment detected: $count $resource_type found (limit: $max_count)"
+        echo ""
+        echo "This deployment has a large number of $resource_type which could:"
+        echo "  - Take a very long time to collect (potentially hours)"
+        echo "  - Create very large diagnostic files (potentially GBs)"
+        echo "  - Consume significant system resources"
+        echo ""
+        echo "Options:"
+        echo "  1) Continue with all $resource_type (not recommended)"
+        echo "  2) Collect only the first $max_count $resource_type (recommended)"
+        echo "  3) Skip $resource_type collection entirely"
+        echo "  4) Exit and adjust limits"
+        echo ""
+        
+        while true; do
+            read -p "Choose an option [2]: " choice
+            case "${choice:-2}" in
+                1)
+                    log_warning "Proceeding with all $count $resource_type - this may take a very long time"
+                    return 0
+                    ;;
+                2)
+                    log_info "Limiting collection to first $max_count $resource_type"
+                    return 1
+                    ;;
+                3)
+                    log_info "Skipping $resource_type collection"
+                    return 2
+                    ;;
+                4)
+                    log_info "Exiting. You can adjust limits by setting max_pods or max_containers variables."
+                    exit 0
+                    ;;
+                *)
+                    echo "Invalid option. Please choose 1, 2, 3, or 4."
+                    ;;
+            esac
+        done
+    fi
+    return 0
 }
 
 # Safe execution wrapper for critical commands
@@ -182,6 +233,32 @@ validate_inputs() {
         log_info "Using custom log lines: $log_lines"
     fi
     
+    # Validate max pods parameter
+    if [[ -n "$max_pods" ]]; then
+        if ! [[ "$max_pods" =~ ^[0-9]+$ ]]; then
+            log_error "Max pods must be a positive integer. Got: $max_pods"
+            exit 1
+        fi
+        if [[ "$max_pods" -lt 1 ]]; then
+            log_error "Max pods must be at least 1. Got: $max_pods"
+            exit 1
+        fi
+        log_info "Using max pods limit: $max_pods"
+    fi
+    
+    # Validate max containers parameter
+    if [[ -n "$max_containers" ]]; then
+        if ! [[ "$max_containers" =~ ^[0-9]+$ ]]; then
+            log_error "Max containers must be a positive integer. Got: $max_containers"
+            exit 1
+        fi
+        if [[ "$max_containers" -lt 1 ]]; then
+            log_error "Max containers must be at least 1. Got: $max_containers"
+            exit 1
+        fi
+        log_info "Using max containers limit: $max_containers"
+    fi
+    
     # Validate custom output directory if provided
     if [[ -n "$custom_output_dir" ]]; then
         # Convert to absolute path
@@ -293,23 +370,45 @@ gather_k8s_info() {
     log_info "Gathering pod information and logs..."
     local pods
     if pods=$(kubectl get pods -n "$namespace" -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' 2>/dev/null); then
-        while IFS= read -r pod; do
-            if [[ -n "$pod" ]]; then
-                local status
-                if status=$(kubectl get pod "$pod" -n "$namespace" -o jsonpath='{.status.phase}' 2>/dev/null); then
-                    if [[ "$status" != "Running" ]]; then
-                        # Describe pod if not in Running state
-                        safe_execute "kubectl describe pod '$pod' -n '$namespace'" "$output_dir/describe_${pod}.txt" "Pod description for $pod"
-                    else
-                        # Get the last N lines of logs for running pods
-                        safe_execute "kubectl logs '$pod' -n '$namespace' --all-containers=true --tail=$log_lines" "$output_dir/logs_${pod}_last${log_lines}.txt" "Logs for pod $pod"
-                    fi
-                else
-                    log_warning "Could not get status for pod: $pod"
-                fi
+        local pod_count=$(echo "$pods" | grep -c . || echo "0")
+        
+        # Check for large deployment
+        check_large_deployment "pods" "$pod_count" "$max_pods"
+        local large_deployment_result=$?
+        
+        if [[ "$large_deployment_result" -eq 2 ]]; then
+            # Skip pod collection
+            log_info "Skipping pod collection due to large deployment"
+            # Update progress for skipped pods
+            for ((i=0; i<pod_count; i++)); do
                 update_progress
+            done
+        else
+            local pods_to_process="$pods"
+            if [[ "$large_deployment_result" -eq 1 ]]; then
+                # Limit to first max_pods
+                pods_to_process=$(echo "$pods" | head -n "$max_pods")
+                log_info "Processing first $max_pods pods out of $pod_count total"
             fi
-        done <<< "$pods"
+            
+            while IFS= read -r pod; do
+                if [[ -n "$pod" ]]; then
+                    local status
+                    if status=$(kubectl get pod "$pod" -n "$namespace" -o jsonpath='{.status.phase}' 2>/dev/null); then
+                        if [[ "$status" != "Running" ]]; then
+                            # Describe pod if not in Running state
+                            safe_execute "kubectl describe pod '$pod' -n '$namespace'" "$output_dir/describe_${pod}.txt" "Pod description for $pod"
+                        else
+                            # Get the last N lines of logs for running pods
+                            safe_execute "kubectl logs '$pod' -n '$namespace' --all-containers=true --tail=$log_lines" "$output_dir/logs_${pod}_last${log_lines}.txt" "Logs for pod $pod"
+                        fi
+                    else
+                        log_warning "Could not get status for pod: $pod"
+                    fi
+                    update_progress
+                fi
+            done <<< "$pods_to_process"
+        fi
     else
         log_warning "Could not list pods in namespace: $namespace"
     fi
@@ -473,17 +572,39 @@ gather_docker_info() {
     log_info "Gathering container logs..."
     local containers
     if containers=$(docker ps -a --format '{{.Names}}' 2>/dev/null); then
-        while IFS= read -r name; do
-            if [[ -n "$name" ]]; then
-                # Get container logs
-                if docker logs -n "$log_lines" "$name" >"${output_dir}/logs_${name}_stdout.txt" 2>"${output_dir}/logs_${name}_stderr.txt" 2>/dev/null; then
-                    log_success "Logs for container $name"
-                else
-                    log_warning "Could not get logs for container: $name"
-                fi
+        local container_count=$(echo "$containers" | grep -c . || echo "0")
+        
+        # Check for large deployment
+        check_large_deployment "containers" "$container_count" "$max_containers"
+        local large_deployment_result=$?
+        
+        if [[ "$large_deployment_result" -eq 2 ]]; then
+            # Skip container collection
+            log_info "Skipping container collection due to large deployment"
+            # Update progress for skipped containers
+            for ((i=0; i<container_count; i++)); do
                 update_progress
+            done
+        else
+            local containers_to_process="$containers"
+            if [[ "$large_deployment_result" -eq 1 ]]; then
+                # Limit to first max_containers
+                containers_to_process=$(echo "$containers" | head -n "$max_containers")
+                log_info "Processing first $max_containers containers out of $container_count total"
             fi
-        done <<< "$containers"
+            
+            while IFS= read -r name; do
+                if [[ -n "$name" ]]; then
+                    # Get container logs
+                    if docker logs -n "$log_lines" "$name" >"${output_dir}/logs_${name}_stdout.txt" 2>"${output_dir}/logs_${name}_stderr.txt" 2>/dev/null; then
+                        log_success "Logs for container $name"
+                    else
+                        log_warning "Could not get logs for container: $name"
+                    fi
+                    update_progress
+                fi
+            done <<< "$containers_to_process"
+        fi
     else
         log_warning "Could not list containers"
     fi
@@ -491,16 +612,38 @@ gather_docker_info() {
     # Get the list of all inspect
     log_info "Gathering container inspection data..."
     if containers=$(docker ps -a --format '{{.Names}}' 2>/dev/null); then
-        while IFS= read -r name; do
-            if [[ -n "$name" ]]; then
-                if docker inspect "$name" > "$output_dir/inspect_${name}.txt" 2>/dev/null; then
-                    log_success "Inspection data for container $name"
-                else
-                    log_warning "Could not inspect container: $name"
-                fi
+        local container_count=$(echo "$containers" | grep -c . || echo "0")
+        
+        # Check for large deployment
+        check_large_deployment "containers" "$container_count" "$max_containers"
+        local large_deployment_result=$?
+        
+        if [[ "$large_deployment_result" -eq 2 ]]; then
+            # Skip container inspection
+            log_info "Skipping container inspection due to large deployment"
+            # Update progress for skipped containers
+            for ((i=0; i<container_count; i++)); do
                 update_progress
+            done
+        else
+            local containers_to_process="$containers"
+            if [[ "$large_deployment_result" -eq 1 ]]; then
+                # Limit to first max_containers
+                containers_to_process=$(echo "$containers" | head -n "$max_containers")
+                log_info "Processing first $max_containers containers out of $container_count total"
             fi
-        done <<< "$containers"
+            
+            while IFS= read -r name; do
+                if [[ -n "$name" ]]; then
+                    if docker inspect "$name" > "$output_dir/inspect_${name}.txt" 2>/dev/null; then
+                        log_success "Inspection data for container $name"
+                    else
+                        log_warning "Could not inspect container: $name"
+                    fi
+                    update_progress
+                fi
+            done <<< "$containers_to_process"
+        fi
     fi
 
     # Remove any empty files
@@ -521,6 +664,8 @@ show_help() {
     echo "                               Examples: anomalo.your-domain.com, https://anomalo.company.com"
     echo "  -o, --output <directory>     Specify custom output directory (default: auto-generated timestamped name)"
     echo "  -l, --logs <number>          Number of log lines to collect per container/pod (default: 250)"
+    echo "  -p, --max-pods <number>      Maximum number of pods to process (default: 50)"
+    echo "  -c, --max-containers <number> Maximum number of containers to process (default: 50)"
     echo "  -h, --help                   Show this help message and exit"
     echo ""
     echo "Interactive Mode:"
@@ -677,6 +822,16 @@ while [[ $# -gt 0 ]]; do
         ;;
         -l|--logs)
         log_lines="$2"
+        shift
+        shift
+        ;;
+        -p|--max-pods)
+        max_pods="$2"
+        shift
+        shift
+        ;;
+        -c|--max-containers)
+        max_containers="$2"
         shift
         shift
         ;;
