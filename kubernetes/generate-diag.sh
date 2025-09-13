@@ -12,6 +12,7 @@ type=""
 namespace=""
 base_domain=""
 custom_output_dir=""
+log_lines="250"
 
 # Error handling and utility functions
 log_error() {
@@ -131,6 +132,22 @@ validate_inputs() {
     
     log_info "Using normalized domain: $base_domain"
     
+    # Validate log lines parameter
+    if [[ -n "$log_lines" ]]; then
+        if ! [[ "$log_lines" =~ ^[0-9]+$ ]]; then
+            log_error "Log lines must be a positive integer. Got: $log_lines"
+            exit 1
+        fi
+        if [[ "$log_lines" -lt 1 ]]; then
+            log_error "Log lines must be at least 1. Got: $log_lines"
+            exit 1
+        fi
+        if [[ "$log_lines" -gt 10000 ]]; then
+            log_warning "Log lines is very large ($log_lines). This may create very large files."
+        fi
+        log_info "Using custom log lines: $log_lines"
+    fi
+    
     # Validate custom output directory if provided
     if [[ -n "$custom_output_dir" ]]; then
         # Convert to absolute path
@@ -230,8 +247,8 @@ gather_k8s_info() {
                         # Describe pod if not in Running state
                         safe_execute "kubectl describe pod '$pod' -n '$namespace'" "$output_dir/describe_${pod}.txt" "Pod description for $pod"
                     else
-                        # Get the last 250 lines of logs for running pods
-                        safe_execute "kubectl logs '$pod' -n '$namespace' --all-containers=true --tail=250" "$output_dir/logs_${pod}_last250.txt" "Logs for pod $pod"
+                        # Get the last N lines of logs for running pods
+                        safe_execute "kubectl logs '$pod' -n '$namespace' --all-containers=true --tail=$log_lines" "$output_dir/logs_${pod}_last${log_lines}.txt" "Logs for pod $pod"
                     fi
                 else
                     log_warning "Could not get status for pod: $pod"
@@ -376,7 +393,7 @@ gather_docker_info() {
         while IFS= read -r name; do
             if [[ -n "$name" ]]; then
                 # Get container logs
-                if docker logs -n 250 "$name" >"${output_dir}/logs_${name}_stdout.txt" 2>"${output_dir}/logs_${name}_stderr.txt" 2>/dev/null; then
+                if docker logs -n "$log_lines" "$name" >"${output_dir}/logs_${name}_stdout.txt" 2>"${output_dir}/logs_${name}_stderr.txt" 2>/dev/null; then
                     log_success "Logs for container $name"
                 else
                     log_warning "Could not get logs for container: $name"
@@ -417,6 +434,7 @@ show_help() {
     echo "  -d, --domain <base_domain>   Specify the base domain URL for your anomalo instance."
     echo "                               Examples: anomalo.your-domain.com, https://anomalo.company.com"
     echo "  -o, --output <directory>     Specify custom output directory (default: auto-generated timestamped name)"
+    echo "  -l, --logs <number>          Number of log lines to collect per container/pod (default: 250)"
     echo "  -h, --help                   Show this help message and exit"
     echo ""
     echo "Interactive Mode:"
@@ -436,6 +454,11 @@ show_help() {
     echo "  - ./my-diagnostics"
     echo "  - /tmp/anomalo-debug"
     echo "  - ~/diagnostics/anomalo-$(date +%Y%m%d)"
+    echo ""
+    echo "Log lines examples:"
+    echo "  - 100 (for smaller files)"
+    echo "  - 500 (for more detailed logs)"
+    echo "  - 1000 (for comprehensive debugging)"
     echo ""
 }
 
@@ -558,6 +581,11 @@ while [[ $# -gt 0 ]]; do
         shift
         shift
         ;;
+        -l|--logs)
+        log_lines="$2"
+        shift
+        shift
+        ;;
         -h|--help)
         show_help
         exit 0
@@ -626,6 +654,20 @@ if [[ -z "$custom_output_dir" ]]; then
     else
         echo "Selected: $custom_output_dir"
     fi
+    echo ""
+fi
+
+# Prompt for log lines with default
+if [[ -z "$log_lines" ]]; then
+    echo "Number of log lines to collect:"
+    echo "  Default: 250"
+    echo "  Examples: 100 (smaller files), 500 (more detail), 1000 (comprehensive)"
+    echo ""
+    read -p "Enter number of log lines [250]: " log_lines
+    if [[ -z "$log_lines" ]]; then
+        log_lines="250"
+    fi
+    echo "Selected: $log_lines"
     echo ""
 fi
 

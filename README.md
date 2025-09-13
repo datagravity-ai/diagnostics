@@ -112,6 +112,7 @@ The script collects Docker-specific diagnostic information including:
 | `--namespace` | `-n` | Kubernetes namespace (Kubernetes only) | `anomalo` |
 | `--domain` | `-d` | Base domain URL for your Anomalo instance (supports various formats) | *required* |
 | `--output` | `-o` | Custom output directory for diagnostic files | Auto-generated timestamped name |
+| `--logs` | `-l` | Number of log lines to collect per container/pod | `250` |
 | `--help` | `-h` | Show help message and exit | - |
 
 ## Domain Format
@@ -166,6 +167,34 @@ By default, the script creates a timestamped directory (e.g., `anomalo_diag_2024
 - **Parent directory check**: The parent directory must exist
 - **Overwrite protection**: If the directory exists, you'll be prompted to confirm overwrite
 - **Absolute paths**: Relative paths are converted to absolute paths for consistency
+
+## Log Collection Options
+
+The script collects logs from all containers/pods with configurable line counts:
+
+### Examples
+
+```bash
+# Default log collection (250 lines)
+./generate-diag.sh -d anomalo.company.com
+
+# Collect more logs for detailed debugging
+./generate-diag.sh -d anomalo.company.com -l 1000
+
+# Collect fewer logs for smaller files
+./generate-diag.sh -d anomalo.company.com -l 100
+
+# Collect comprehensive logs
+./generate-diag.sh -d anomalo.company.com -l 5000
+```
+
+### Log Collection Behavior
+
+- **Kubernetes**: Collects logs from all pods in the namespace
+- **Docker**: Collects logs from all containers
+- **File naming**: Log files are named with the line count (e.g., `logs_pod-name_last500.txt`)
+- **Validation**: Log line count must be a positive integer (1-10000)
+- **Warning**: Large log counts (>10000) will show a warning about file size
 
 ## Prerequisites
 
