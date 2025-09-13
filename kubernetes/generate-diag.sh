@@ -16,7 +16,6 @@ log_lines="250"
 total_steps=0
 current_step=0
 max_pods=50
-max_containers=50
 
 # Error handling and utility functions
 log_error() {
@@ -246,18 +245,6 @@ validate_inputs() {
         log_info "Using max pods limit: $max_pods"
     fi
     
-    # Validate max containers parameter
-    if [[ -n "$max_containers" ]]; then
-        if ! [[ "$max_containers" =~ ^[0-9]+$ ]]; then
-            log_error "Max containers must be a positive integer. Got: $max_containers"
-            exit 1
-        fi
-        if [[ "$max_containers" -lt 1 ]]; then
-            log_error "Max containers must be at least 1. Got: $max_containers"
-            exit 1
-        fi
-        log_info "Using max containers limit: $max_containers"
-    fi
     
     # Validate custom output directory if provided
     if [[ -n "$custom_output_dir" ]]; then
@@ -572,39 +559,17 @@ gather_docker_info() {
     log_info "Gathering container logs..."
     local containers
     if containers=$(docker ps -a --format '{{.Names}}' 2>/dev/null); then
-        local container_count=$(echo "$containers" | grep -c . || echo "0")
-        
-        # Check for large deployment
-        check_large_deployment "containers" "$container_count" "$max_containers"
-        local large_deployment_result=$?
-        
-        if [[ "$large_deployment_result" -eq 2 ]]; then
-            # Skip container collection
-            log_info "Skipping container collection due to large deployment"
-            # Update progress for skipped containers
-            for ((i=0; i<container_count; i++)); do
-                update_progress
-            done
-        else
-            local containers_to_process="$containers"
-            if [[ "$large_deployment_result" -eq 1 ]]; then
-                # Limit to first max_containers
-                containers_to_process=$(echo "$containers" | head -n "$max_containers")
-                log_info "Processing first $max_containers containers out of $container_count total"
-            fi
-            
-            while IFS= read -r name; do
-                if [[ -n "$name" ]]; then
-                    # Get container logs
-                    if docker logs -n "$log_lines" "$name" >"${output_dir}/logs_${name}_stdout.txt" 2>"${output_dir}/logs_${name}_stderr.txt" 2>/dev/null; then
-                        log_success "Logs for container $name"
-                    else
-                        log_warning "Could not get logs for container: $name"
-                    fi
-                    update_progress
+        while IFS= read -r name; do
+            if [[ -n "$name" ]]; then
+                # Get container logs
+                if docker logs -n "$log_lines" "$name" >"${output_dir}/logs_${name}_stdout.txt" 2>"${output_dir}/logs_${name}_stderr.txt" 2>/dev/null; then
+                    log_success "Logs for container $name"
+                else
+                    log_warning "Could not get logs for container: $name"
                 fi
-            done <<< "$containers_to_process"
-        fi
+                update_progress
+            fi
+        done <<< "$containers"
     else
         log_warning "Could not list containers"
     fi
@@ -612,38 +577,16 @@ gather_docker_info() {
     # Get the list of all inspect
     log_info "Gathering container inspection data..."
     if containers=$(docker ps -a --format '{{.Names}}' 2>/dev/null); then
-        local container_count=$(echo "$containers" | grep -c . || echo "0")
-        
-        # Check for large deployment
-        check_large_deployment "containers" "$container_count" "$max_containers"
-        local large_deployment_result=$?
-        
-        if [[ "$large_deployment_result" -eq 2 ]]; then
-            # Skip container inspection
-            log_info "Skipping container inspection due to large deployment"
-            # Update progress for skipped containers
-            for ((i=0; i<container_count; i++)); do
-                update_progress
-            done
-        else
-            local containers_to_process="$containers"
-            if [[ "$large_deployment_result" -eq 1 ]]; then
-                # Limit to first max_containers
-                containers_to_process=$(echo "$containers" | head -n "$max_containers")
-                log_info "Processing first $max_containers containers out of $container_count total"
-            fi
-            
-            while IFS= read -r name; do
-                if [[ -n "$name" ]]; then
-                    if docker inspect "$name" > "$output_dir/inspect_${name}.txt" 2>/dev/null; then
-                        log_success "Inspection data for container $name"
-                    else
-                        log_warning "Could not inspect container: $name"
-                    fi
-                    update_progress
+        while IFS= read -r name; do
+            if [[ -n "$name" ]]; then
+                if docker inspect "$name" > "$output_dir/inspect_${name}.txt" 2>/dev/null; then
+                    log_success "Inspection data for container $name"
+                else
+                    log_warning "Could not inspect container: $name"
                 fi
-            done <<< "$containers_to_process"
-        fi
+                update_progress
+            fi
+        done <<< "$containers"
     fi
 
     # Remove any empty files
@@ -665,7 +608,6 @@ show_help() {
     echo "  -o, --output <directory>     Specify custom output directory (default: auto-generated timestamped name)"
     echo "  -l, --logs <number>          Number of log lines to collect per container/pod (default: 250)"
     echo "  -p, --max-pods <number>      Maximum number of pods to process (default: 50)"
-    echo "  -c, --max-containers <number> Maximum number of containers to process (default: 50)"
     echo "  -h, --help                   Show this help message and exit"
     echo ""
     echo "Interactive Mode:"
@@ -827,11 +769,6 @@ while [[ $# -gt 0 ]]; do
         ;;
         -p|--max-pods)
         max_pods="$2"
-        shift
-        shift
-        ;;
-        -c|--max-containers)
-        max_containers="$2"
         shift
         shift
         ;;

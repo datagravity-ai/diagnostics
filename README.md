@@ -114,7 +114,6 @@ The script collects Docker-specific diagnostic information including:
 | `--output` | `-o` | Custom output directory for diagnostic files | Auto-generated timestamped name |
 | `--logs` | `-l` | Number of log lines to collect per container/pod | `250` |
 | `--max-pods` | `-p` | Maximum number of pods to process (large deployments) | `50` |
-| `--max-containers` | `-c` | Maximum number of containers to process (large deployments) | `50` |
 | `--help` | `-h` | Show help message and exit | - |
 
 ## Domain Format
@@ -236,11 +235,11 @@ Progress: [████████████░░░░░░░░] 60% (15
 
 ## Large Deployment Handling
 
-The diagnostic script includes intelligent handling for large deployments with many pods or containers:
+The diagnostic script includes intelligent handling for large Kubernetes deployments with many pods:
 
 ### Automatic Detection
 
-When the script detects more than 50 pods or containers, it will:
+When the script detects more than 50 pods, it will:
 
 1. **Warn the user** about the large deployment
 2. **Explain the risks** (long collection time, large files, resource usage)
@@ -273,14 +272,8 @@ You can pre-configure limits to avoid interactive prompts:
 # Increase pod limit to 100
 ./generate-diag.sh -d anomalo.company.com -p 100
 
-# Increase container limit to 200
-./generate-diag.sh -d anomalo.company.com -c 200
-
-# Set both limits
-./generate-diag.sh -d anomalo.company.com -p 100 -c 200
-
-# Disable limits (collect all - use with caution)
-./generate-diag.sh -d anomalo.company.com -p 9999 -c 9999
+# Disable pod limits (collect all - use with caution)
+./generate-diag.sh -d anomalo.company.com -p 9999
 ```
 
 ### Recommended Strategies
@@ -290,15 +283,15 @@ You can pre-configure limits to avoid interactive prompts:
 - Focus on problematic pods first
 - Collect logs from specific pods manually if needed
 
-**For large Docker deployments:**
-- Use `-c 50` to limit container collection
-- Prioritize running containers over stopped ones
-- Consider collecting logs from specific containers manually
+**For Docker deployments:**
+- Docker containers are collected in full (no limits needed)
+- Typically fewer containers than Kubernetes pods
+- All container logs and inspection data are gathered
 
-**For very large deployments:**
-- Use `-p 20 -c 20` for quick diagnostics
+**For very large Kubernetes deployments:**
+- Use `-p 20` for quick diagnostics
 - Collect only essential information
-- Use targeted kubectl/docker commands for specific issues
+- Use targeted kubectl commands for specific issues
 
 ## Prerequisites
 
