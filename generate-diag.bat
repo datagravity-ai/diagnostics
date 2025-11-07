@@ -9,46 +9,34 @@ echo.
 echo This script will help you run the Anomalo diagnostic tool on Windows.
 echo.
 
-REM Check if we're in a supported environment
-where bash >nul 2>nul
+REM Check if PowerShell is available
+where powershell >nul 2>nul
 if %ERRORLEVEL% NEQ 0 (
-    echo ERROR: bash command not found!
+    echo ERROR: PowerShell not found!
     echo.
-    echo Please install one of the following:
-    echo 1. Windows Subsystem for Linux (WSL2) - Recommended
-    echo 2. Git for Windows (includes Git Bash)
-    echo 3. Docker Desktop
-    echo.
-    echo Then run this script again from that environment.
+    echo PowerShell is required to run this diagnostic tool.
+    echo Please install PowerShell or use Windows 10/11 which includes PowerShell by default.
     echo.
     pause
     exit /b 1
 )
 
-echo Found bash environment. Checking for required tools...
+echo Found PowerShell. Checking for required tools...
 echo.
 
-REM Check for curl
-where curl >nul 2>nul
+REM Check for kubectl
+where kubectl >nul 2>nul
 if %ERRORLEVEL% NEQ 0 (
-    echo WARNING: curl not found. The script may not work properly.
-    echo Please install curl or use WSL2.
-    echo.
-)
-
-REM Check for zip
-where zip >nul 2>nul
-if %ERRORLEVEL% NEQ 0 (
-    echo WARNING: zip not found. The script may not work properly.
-    echo Please install zip or use WSL2.
+    echo WARNING: kubectl not found. The script may not work properly.
+    echo Please install kubectl to collect Kubernetes diagnostics.
     echo.
 )
 
 echo Downloading and running the diagnostic script...
 echo.
 
-REM Download and run the script
-bash -c "curl https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/generate-diag.sh -o generate-diag.sh && chmod +x generate-diag.sh && ./generate-diag.sh"
+REM Download and run the PowerShell script
+powershell -ExecutionPolicy Bypass -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/datagravity-ai/diagnostics/main/generate-diag.ps1' -OutFile 'generate-diag.ps1'; .\generate-diag.ps1"
 
 if %ERRORLEVEL% EQU 0 (
     echo.
