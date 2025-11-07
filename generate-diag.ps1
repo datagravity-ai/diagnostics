@@ -145,20 +145,6 @@ function Gather-K8s {
   }
   if ($null -eq $pods) { $pods = @() }
 
-  $configmaps = @()
-  try {
-    $cmsJson = kubectl get configmaps -n $Ns -o json
-    if ($cmsJson) {
-      $items = (ConvertFrom-Json $cmsJson).items
-      if ($items) {
-        $configmaps = @($items | ForEach-Object { if ($_.metadata.name) { $_.metadata.name } } | Where-Object { $_ -and $_.Trim() -ne '' })
-      }
-    }
-  } catch { 
-    $configmaps = @() 
-  }
-  if ($null -eq $configmaps) { $configmaps = @() }
-
   $toProcessPods = if ($pods) { $pods } else { @() }
   $podCount = if ($toProcessPods) { $toProcessPods.Count } else { 0 }
   if ($podCount -gt $MaxPods) {
@@ -167,8 +153,7 @@ function Gather-K8s {
   }
 
   $podCountEst = if ($toProcessPods) { $toProcessPods.Count } else { 0 }
-  $cmCountEst = if ($configmaps) { $configmaps.Count } else { 0 }
-  $est = 15 + $podCountEst + $cmCountEst
+  $est = 15 + $podCountEst
   $progress = [ProgressCounter]::new($est)
 
   Invoke-Safe { kubectl get all -n $Ns -o wide } "$Root\kubernetes\all_resources_${Ns}.txt" "All resources in $Ns"; $progress.Step("k8s")
@@ -195,59 +180,13 @@ function Gather-K8s {
   Invoke-Safe { kubectl get ingress -n $Ns -o wide } "$Root\kubernetes\ingress_${Ns}.txt" "Ingress in $Ns"; $progress.Step("k8s")
   Invoke-Safe { kubectl get pv,pvc -n $Ns } "$Root\kubernetes\storage_${Ns}.txt" "Storage in $Ns"; $progress.Step("k8s")
 
-  # Names lists without jsonpath (and produce a single string)
-  try {
-    $items = (ConvertFrom-Json (kubectl get configmaps -n $Ns -o json)).items
-    $names = @($items | ForEach-Object { $_.metadata.name } | Where-Object { $_ -and $_.Trim() -ne '' })
-    $content = if ($names.Count -gt 0) { $names -join "`r`n" } else { "" }
-    $parent = Split-Path -Path "$Root\kubernetes\configs\configmaps_${Ns}.txt" -Parent
-    if (!(Test-Path $parent)) { New-Item -ItemType Directory -Force -Path $parent | Out-Null }
-    $content | Out-File -FilePath "$Root\kubernetes\configs\configmaps_${Ns}.txt" -Encoding utf8
-    Write-Ok "ConfigMap names"
-  } catch {
-    Write-Warn "ConfigMap names - failed: $($_.Exception.Message)"
-  }
-  $progress.Step("k8s")
+  # Get all ConfigMaps in one file
+  Invoke-Safe { kubectl get configmaps -n $Ns -o yaml } "$Root\kubernetes\configs\all_configmaps_${Ns}.yaml" "All ConfigMaps"; $progress.Step("k8s")
 
-  try {
-    $items = (ConvertFrom-Json (kubectl get secrets -n $Ns -o json)).items
-    $names = @($items | ForEach-Object { $_.metadata.name } | Where-Object { $_ -and $_.Trim() -ne '' })
-    $content = if ($names.Count -gt 0) { $names -join "`r`n" } else { "" }
-    $parent = Split-Path -Path "$Root\kubernetes\configs\secrets_${Ns}.txt" -Parent
-    if (!(Test-Path $parent)) { New-Item -ItemType Directory -Force -Path $parent | Out-Null }
-    $content | Out-File -FilePath "$Root\kubernetes\configs\secrets_${Ns}.txt" -Encoding utf8
-    Write-Ok "Secret names"
-  } catch {
-    Write-Warn "Secret names - failed: $($_.Exception.Message)"
-  }
-  $progress.Step("k8s")
+  # Get all Secrets in one file (names only, not values)
+  Invoke-Safe { kubectl get secrets -n $Ns -o yaml } "$Root\kubernetes\configs\all_secrets_${Ns}.yaml" "All Secrets (Review before sending)"; $progress.Step("k8s")
 
-  # Collect all ConfigMaps
-  Write-Info "Gathering all ConfigMap values..."
-  foreach ($cm in $configmaps) {
-    if ($cm -and $cm.Trim() -ne '') {
-      try {
-        $parent = Split-Path -Path "$Root\kubernetes\configs\${cm}_configmap.yaml" -Parent
-        if (!(Test-Path $parent)) { New-Item -ItemType Directory -Force -Path $parent | Out-Null }
-        kubectl get configmap $cm -n $Ns -o yaml | Out-File -FilePath "$Root\kubernetes\configs\${cm}_configmap.yaml" -Encoding utf8
-        Write-Ok "ConfigMap $cm"
-      } catch {
-        Write-Warn "ConfigMap $cm - failed: $($_.Exception.Message)"
-      }
-      $progress.Step("k8s")
-    }
-  }
-
-  if ($CollectSecrets) {
-    $secret = 'anomalo-env-secrets'
-    try {
-      kubectl get secret $secret -n $Ns -o yaml | Out-File -FilePath "$Root\kubernetes\configs\${secret}_secret.yaml" -Encoding utf8
-      Write-Warn "Collected values from Secret '$secret' (contains sensitive data)"
-    } catch {
-      Write-Info "Secret '$secret' not found in '$Ns'"
-    }
-    $progress.Step("k8s")
-  }
+  
 
   $progress.Complete()
   Write-Ok "Kubernetes diagnostics collected"
