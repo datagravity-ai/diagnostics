@@ -208,9 +208,13 @@ validate_inputs() {
     base_domain=$(normalize_domain "$base_domain")
     
     # Basic domain validation after normalization
-    if [[ ! "$base_domain" =~ ^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
+    # Allow localhost (with optional port) or standard domain format
+    if [[ "$base_domain" == "localhost" ]] || [[ "$base_domain" =~ ^localhost:[0-9]+$ ]]; then
+        # Allow localhost with or without port
+        log_info "Using localhost domain: $base_domain"
+    elif [[ ! "$base_domain" =~ ^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
         log_error "Invalid domain format: $base_domain. Must be a valid domain name."
-        log_error "Examples: anomalo.your-domain.com, my-anomalo.company.com"
+        log_error "Examples: anomalo.your-domain.com, my-anomalo.company.com, localhost, localhost:8080"
         exit 1
     fi
     
@@ -649,7 +653,12 @@ main() {
     validate_required_tools
 
     # Construct the full URL for health check
-    local health_check_url="https://${base_domain}/health_check?metrics=1"
+    # Use http:// for localhost, https:// for other domains
+    if [[ "$base_domain" == "localhost" ]] || [[ "$base_domain" =~ ^localhost: ]]; then
+        local health_check_url="http://${base_domain}/health_check?metrics=1"
+    else
+        local health_check_url="https://${base_domain}/health_check?metrics=1"
+    fi
 
     # Directory to store output files
     if [[ -n "$custom_output_dir" ]]; then
