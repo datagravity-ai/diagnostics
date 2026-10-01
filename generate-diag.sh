@@ -566,7 +566,7 @@ gather_docker_info() {
         while IFS= read -r name; do
             if [[ -n "$name" ]]; then
                 # Get container logs
-                if docker logs -n "$log_lines" "$name" >"${output_dir}/docker/logs/logs_${name}_stdout.txt" 2>"${output_dir}/docker/logs/logs_${name}_stderr.txt" 2>/dev/null; then
+                if docker logs -n "$log_lines" "$name" >"${output_dir}/docker/logs/logs_${name}_stdout.txt" 2>"${output_dir}/docker/logs/logs_${name}_stderr.txt"; then
                     log_success "Logs for container $name"
                 else
                     log_warning "Could not get logs for container: $name"
